@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Health Care App</string>
+    <string name="heart_rate_description">Put your finger so that it cover the phone camera and flash, then press Start</string>
+    <string name="btn_start">Start</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="trending">Trending</string>
+    <string name="heart_rate_monitor">Heart rate</string>
+    <string name="heart_rate_measuring">Measuring your heart rate</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_pause">Pause</string>
+    <string name="result">Result</string>
 </resources>

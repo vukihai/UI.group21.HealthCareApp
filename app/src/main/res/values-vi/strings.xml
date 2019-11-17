@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chăm sóc sức khỏe</string>
+    <string name="heart_rate_description">Đặt ngón tay trỏ che kín camera cùng đèn flash rồi nhấn bắt đầu</string>
+    <string name="btn_start">Bắt đầu</string>
+    <string name="trending">Xu hướng</string>
+    <string name="heart_rate_monitor">Đo nhịp tim</string>
+    <string name="heart_rate_measuring">Đang đo nhịp tim</string>
+    <string name="btn_stop">Dừng</string>
+    <string name="btn_pause">Tạm dừng</string>
+    <string name="result">Kết quả</string>
+</resources>
