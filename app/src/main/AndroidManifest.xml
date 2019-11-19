@@ -12,8 +12,8 @@
         <activity android:name=".UserProfileActivity"></activity>
         <activity android:name=".inavtive_time_reminder.InactiveTimeReminderActivity" />
         <activity android:name=".smart_alarm.SmartAlarmActivity" />
-        <activity android:name=".sleep_recorder.SleepAnalysisActivity" />
-        <activity android:name=".sleep_recorder.SleepRecorderActivity" />
+        <activity android:name=".sleep_recorder.SleepAnalysisActivity" android:exported="true" />
+        <activity android:name=".sleep_recorder.SleepRecorderActivity" android:exported="true" />
         <activity android:name=".route_tracker.TrackingResultsActivity" />
         <activity android:name=".route_tracker.RouteTrackerActivity" />
         <activity android:name=".step_counter.StepCounterResultsActivity" />
