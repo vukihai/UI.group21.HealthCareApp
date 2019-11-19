@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Chăm sóc sức khỏe</string>
-    <string name="heart_rate_description">Đặt ngón tay trỏ che kín camera cùng đèn flash rồi nhấn bắt đầu</string>
-    <string name="btn_start">Bắt đầu</string>
+    <string name="app_name">Healthcare</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_route_tracker">Map</string>
+    <string name="default_text">defaut text - text mặc định</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Home">Theo dõi</string>
+    <string name="remind">Nhắc nhở</string>
+    <string name="Tracking">Theo dõi</string>
+    <string name="Default_fragment_home_text">Đây là fragment mặc định khi chạy</string>
+    <string name="default_fragment_remind_text">Đây là fragment chứa các chức năng nhắc nhở</string>
+    <string name="splash_icon">splash icon</string>
+    <string name="step_counter_home"><font size="20">ngày hôm nay bạn đã đi 0 bước!</font>\n\<font size="10">mục tiêu hôm nay: 100 bước!</font></string>
+    <string name="mystring">
+        &lt;b&gt; &lt;font size="15" color = "black"&gt;Ngày hôm nay bạn đã đi 0 bước &lt;/ font&gt;&lt;b&gt;
+        &lt;br /&gt;
+        &lt;small&gt;100 bước nữa để đạt mục tiêu &lt;/ b&gt;
+    </string>
+    <string name="heart_rate_measuring">Nhịp tim</string>
     <string name="trending">Xu hướng</string>
-    <string name="heart_rate_monitor">Đo nhịp tim</string>
-    <string name="heart_rate_measuring">Đang đo nhịp tim</string>
-    <string name="btn_stop">Dừng</string>
-    <string name="btn_pause">Tạm dừng</string>
-    <string name="result">Kết quả</string>
+    <string name="heart_rate_monitor">Màn hình đo hịp tim</string>
+    <string name="result">Kết </string>
+    <string name="edit_target_in_step_counter_message">Chỉnh sửa mục tiêu</string>
+    <string name="ok_btn">Lưu</string>
+    <string name="cancel_btn">Huỷ</string>
+    <string name="set_target">Thiết lập mục tiêu</string>
+    <string name="everyday">Mỗi ngày</string>
+    <string name="step">bước</string>
+    <string name="today">Hôm nay</string>
 </resources>
