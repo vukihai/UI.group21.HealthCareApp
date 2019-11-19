@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".UserProfileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".inavtive_time_reminder.InactiveTimeReminderActivity" />
         <activity android:name=".smart_alarm.SmartAlarmActivity" />
         <activity android:name=".sleep_recorder.SleepAnalysisActivity" />
@@ -20,12 +26,8 @@
         <activity android:name=".step_counter.StepCounterActivity" />
         <activity android:name=".heart_rate_monitor.HeartRateResultActivity" />
         <activity android:name=".heart_rate_monitor.HeartRateMonitorActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".MainActivity"
+            android:theme="@style/NoActionBar">
         </activity>
     </application>
 
