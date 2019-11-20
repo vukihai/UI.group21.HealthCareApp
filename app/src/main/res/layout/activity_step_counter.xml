@@ -200,9 +200,8 @@
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="300dp">
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart1"
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/historyStepCounterChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
