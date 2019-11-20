@@ -1,8 +1,9 @@
 package ui.group21.HealthCareApp.sleep_recorder;
 
-import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -85,6 +86,11 @@ public class SleepRecorderActivity extends AppCompatActivity {
         mStartRecordingBtn.setOnClickListener(mStartRecordingBtnOnClickListener);
         mStopRecordingBtn.setOnClickListener(mStopRecordingBtnOnClickListener);
         mHistoryBtn.setOnClickListener(mHistoryBtnOnClickListener);
+
+        startService(new Intent(this, SleepRecorderService.class));
+
+        IntentFilter intentFilter = new IntentFilter();
+        filter.addAction()
     }
 
     private void startRecording() {
