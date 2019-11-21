@@ -10,55 +10,67 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/set_target"
+        android:textColor="@color/color_step_counter_content"
         android:textSize="16sp"
         android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="@string/everyday"
+
+        android:textColor="@color/color_step_counter_content"
         android:textSize="20sp"
         android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/target_value_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+
         android:layout_marginTop="5dp"
+        android:background="@drawable/border_radius"
         android:inputType="numberSigned"
-        android:id="@+id/target_value_editText"
-        android:background="@drawable/border_radius">
-    </EditText>
+        android:textColor="@color/color_step_counter_content"></EditText>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="@string/step"
+        android:textColor="@color/color_step_counter_content"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/cancel_target_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_radius"
             android:layout_marginRight="10dp"
-            android:text="@string/cancel_btn" />
-        <Button
-            android:layout_marginLeft="10dp"
-            android:id="@+id/save_target_action"
             android:background="@drawable/border_radius"
+            android:text="@string/cancel_btn"
+            android:textColor="@color/color_step_counter_content" />
+
+        <Button
+            android:id="@+id/save_target_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ok_btn" />
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/border_radius"
+            android:text="@string/ok_btn"
+            android:textColor="@color/color_step_counter_content" />
 
     </LinearLayout>
 </LinearLayout>

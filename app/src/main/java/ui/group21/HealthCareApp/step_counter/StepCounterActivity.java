@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -96,19 +98,22 @@ public class StepCounterActivity extends AppCompatActivity {
         int start = 0;
         int range = 1000;
         int count = 30;
+        int chartColor=Color.rgb(116, 185, 255);
         ArrayList<BarEntry> values = new ArrayList<>();
         for (int i = start; i < start + count; i++) {
             float val = (float) (Math.random() * (range + 1));
             values.add(new BarEntry(i, val));
         }
-        BarDataSet set = new BarDataSet(values, "Thang nay");
+        BarDataSet set = new BarDataSet(values,"Tháng ");
+        set.setColor(chartColor);
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(set);
         BarData data = new BarData(dataSets);
-        data.setValueTextSize(10f);
+        data.setValueTextSize(0f);
 //        data.setValueTypeface(tfLight);
         data.setBarWidth(0.9f);
-
+        data.setValueTextColor(chartColor);
+        mStepChart.fitScreen();
         mStepChart.setData(data);
     }
 }
