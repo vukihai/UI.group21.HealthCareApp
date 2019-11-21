@@ -1,13 +1,18 @@
 package ui.group21.HealthCareApp.sleep_recorder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -28,6 +33,21 @@ public class SleepRecorderActivity extends AppCompatActivity {
     private Button mStopRecordingBtn;
     private Button mHistoryBtn;
     private LineChart mSleepingTimelineChart;
+
+    private final BroadcastReceiver mLastHalfBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            float[] data = intent.getFloatArrayExtra("DATA");
+            updateSleepingTimelineChart(generateLineData(data));
+        }
+    };
+
+    private final BroadcastReceiver mQuadterAvgsBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    };
 
     private View.OnClickListener mStartRecordingBtnOnClickListener = new View.OnClickListener() {
         @Override
@@ -58,11 +78,10 @@ public class SleepRecorderActivity extends AppCompatActivity {
         initActions();
     }
 
-    private LineData generateLineData() {
-        int MAX_TIME = 60; // in second
+    private LineData generateLineData(float[] data) {
         List<Entry> entries = new ArrayList<Entry>();
-        for(int i = 0; i < MAX_TIME; ++i) {
-            entries.add(new Entry((float) i, (float) (Math.random() * 100)));
+        for(int i = 0; i < data.length; ++i) {
+            entries.add(new Entry((float) i, data[i]));
         }
         LineDataSet dataSet = new LineDataSet(entries, "Timeline");
         return new LineData(dataSet);
@@ -83,26 +102,29 @@ public class SleepRecorderActivity extends AppCompatActivity {
     }
 
     private void initActions() {
+        IntentFilter lastHalfFilter = new IntentFilter();
+        lastHalfFilter.addAction("LAST_HALF_SLEEPING_DATA");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mLastHalfBroadcastReceiver, lastHalfFilter);
+
+        IntentFilter quadterAvgsFilter = new IntentFilter();
+        quadterAvgsFilter.addAction("QUADTER_AVGS_SLEEPING_DATA");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mQuadterAvgsBroadcastReceiver, quadterAvgsFilter);
+
         mStartRecordingBtn.setOnClickListener(mStartRecordingBtnOnClickListener);
         mStopRecordingBtn.setOnClickListener(mStopRecordingBtnOnClickListener);
         mHistoryBtn.setOnClickListener(mHistoryBtnOnClickListener);
-
-        startService(new Intent(this, SleepRecorderService.class));
-
-        IntentFilter intentFilter = new IntentFilter();
-        filter.addAction()
     }
 
     private void startRecording() {
         findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.INVISIBLE);
         findViewById(R.id.linearStopContainer).setVisibility((View.VISIBLE));
-
-        updateSleepingTimelineChart(generateLineData());
+        startService(new Intent(this, SleepRecorderService.class));
     }
 
     private void stopRecording() {
         findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.VISIBLE);
         findViewById(R.id.linearStopContainer).setVisibility((View.INVISIBLE));
+        stopService(new Intent(this, SleepRecorderService.class));
     }
 
     private void updateSleepingTimelineChart(LineData lineData) {
