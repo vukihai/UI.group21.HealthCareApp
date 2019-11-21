@@ -1,8 +1,12 @@
 package ui.group21.HealthCareApp.sleep_recorder;
 
-import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -28,21 +32,36 @@ public class SleepRecorderActivity extends AppCompatActivity {
     private Button mHistoryBtn;
     private LineChart mSleepingTimelineChart;
 
-    private View.OnClickListener mStartRecordingBtnOnClickListener = new View.OnClickListener() {
+    private final BroadcastReceiver mLastHalfBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            float[] data = intent.getFloatArrayExtra("DATA");
+            updateSleepingTimelineChart(generateLineData(data));
+        }
+    };
+
+    private final BroadcastReceiver mQuadterAvgsBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    };
+
+    private final View.OnClickListener mStartRecordingBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             startRecording();
         }
     };
 
-    private View.OnClickListener mStopRecordingBtnOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mStopRecordingBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             stopRecording();
         }
     };
 
-    private View.OnClickListener mHistoryBtnOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mHistoryBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -57,11 +76,10 @@ public class SleepRecorderActivity extends AppCompatActivity {
         initActions();
     }
 
-    private LineData generateLineData() {
-        int MAX_TIME = 60; // in second
-        List<Entry> entries = new ArrayList<Entry>();
-        for(int i = 0; i < MAX_TIME; ++i) {
-            entries.add(new Entry((float) i, (float) (Math.random() * 100)));
+    private LineData generateLineData(float[] data) {
+        List<Entry> entries = new ArrayList<>();
+        for(int i = 0; i < data.length; ++i) {
+            entries.add(new Entry((float) i, data[i]));
         }
         LineDataSet dataSet = new LineDataSet(entries, "Timeline");
         return new LineData(dataSet);
@@ -82,6 +100,14 @@ public class SleepRecorderActivity extends AppCompatActivity {
     }
 
     private void initActions() {
+        IntentFilter lastHalfFilter = new IntentFilter();
+        lastHalfFilter.addAction("LAST_HALF_SLEEPING_DATA");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mLastHalfBroadcastReceiver, lastHalfFilter);
+
+        IntentFilter quadterAvgsFilter = new IntentFilter();
+        quadterAvgsFilter.addAction("QUADTER_AVGS_SLEEPING_DATA");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mQuadterAvgsBroadcastReceiver, quadterAvgsFilter);
+
         mStartRecordingBtn.setOnClickListener(mStartRecordingBtnOnClickListener);
         mStopRecordingBtn.setOnClickListener(mStopRecordingBtnOnClickListener);
         mHistoryBtn.setOnClickListener(mHistoryBtnOnClickListener);
@@ -90,13 +116,13 @@ public class SleepRecorderActivity extends AppCompatActivity {
     private void startRecording() {
         findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.INVISIBLE);
         findViewById(R.id.linearStopContainer).setVisibility((View.VISIBLE));
-
-        updateSleepingTimelineChart(generateLineData());
+        startService(new Intent(this, SleepRecorderService.class));
     }
 
     private void stopRecording() {
         findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.VISIBLE);
         findViewById(R.id.linearStopContainer).setVisibility((View.INVISIBLE));
+        stopService(new Intent(this, SleepRecorderService.class));
     }
 
     private void updateSleepingTimelineChart(LineData lineData) {

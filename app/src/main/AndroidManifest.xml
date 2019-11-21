@@ -30,6 +30,7 @@
         <activity android:name=".MainActivity">
 
         </activity>
+        <service android:name=".sleep_recorder.SleepRecorderService" />
     </application>
 
 </manifest>
