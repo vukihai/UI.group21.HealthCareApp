@@ -14,6 +14,9 @@ import java.util.Date;
 
 
 public class SleepRecorderService extends Service {
+    public final static String ACTION_GET_REALTIME_DATA = "ACTION_GET_DATA";
+    public final static String ACTION_GET_AVGS_DATA = "ACTION_GET_AVGS_DATA";
+
     private final int DELAY_TIME = 1000;
 
     private Date startDateTime;
@@ -30,7 +33,7 @@ public class SleepRecorderService extends Service {
             int second = currentDate.getSeconds();
             int minute = currentDate.getMinutes();
             if(minute % 15 == 0 && second < (DELAY_TIME / 1000) + 1) {
-                updateQuarterAvgs();
+                calculateQuarterAvgs();
             }
             if(mLastHalf.size() > 15) {
                 mLastHalf.remove(0);
@@ -75,22 +78,22 @@ public class SleepRecorderService extends Service {
         return (float) Math.random() * 100;
     }
 
-    private void updateQuarterAvgs() {
+    private void calculateQuarterAvgs() {
         float sum = 0f;
         for(Float number : mLastQuarter) {
-            sum += number.floatValue();
+            sum += number;
         }
-        mQuarterAvgs.add(Float.valueOf(sum / mLastQuarter.size()));
+        mQuarterAvgs.add(sum / mLastQuarter.size());
         mLastQuarter.clear();
     }
 
     private void sendLastHalfData() {
         float[] arr = new float[mLastHalf.size()];
         for(int i = 0; i < mLastHalf.size(); ++i) {
-            arr[i] = mLastHalf.get(i).floatValue();
+            arr[i] = mLastHalf.get(i);
         }
         Intent intent = new Intent();
-        intent.setAction("LAST_HALF_SLEEPING_DATA");
+        intent.setAction(ACTION_GET_REALTIME_DATA);
         intent.putExtra("DATA", arr);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
@@ -101,7 +104,7 @@ public class SleepRecorderService extends Service {
             arr[i] = mQuarterAvgs.get(i);
         }
         Intent intent = new Intent();
-        intent.setAction("QUARTER_AVGS_SLEEPING_DATA");
+        intent.setAction(ACTION_GET_AVGS_DATA);
         intent.putExtra("DATA", arr);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
