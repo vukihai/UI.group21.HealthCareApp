@@ -15,7 +15,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="16dp"
-        android:text="string/btn_start"
+        android:text="@string/btn_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -32,22 +32,25 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btn_start"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415">
 
         <ImageView
             android:id="@+id/img_heart_rate"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:srcCompat="@drawable/heart_rate" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/icon_heart_rate" />
 
         <TextView
             android:id="@+id/tv_heart_rate_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="string/heart_rate_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/heart_rate_description"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

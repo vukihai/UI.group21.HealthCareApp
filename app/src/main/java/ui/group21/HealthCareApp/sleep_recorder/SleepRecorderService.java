@@ -14,29 +14,32 @@ import java.util.Date;
 
 
 public class SleepRecorderService extends Service {
+    public final static String ACTION_GET_REALTIME_DATA = "ACTION_GET_DATA";
+    public final static String ACTION_GET_AVGS_DATA = "ACTION_GET_AVGS_DATA";
+
     private final int DELAY_TIME = 1000;
 
     private Date startDateTime;
     private Date endDateTime;
     private final ArrayList<Float> mLastHalf = new ArrayList<>();
-    private final ArrayList<Float> mLastQuadter = new ArrayList<>();
-    private final ArrayList<Float> mQuadterAvgs = new ArrayList<>();
+    private final ArrayList<Float> mLastQuarter = new ArrayList<>();
+    private final ArrayList<Float> mQuarterAvgs = new ArrayList<>();
     private final Handler mHandler = new Handler();
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            Float value = Float.valueOf(getData());
+            Float value = getData();
             Date currentDate = new Date();
             int second = currentDate.getSeconds();
             int minute = currentDate.getMinutes();
             if(minute % 15 == 0 && second < (DELAY_TIME / 1000) + 1) {
-                updateQuadterAvgs();
+                calculateQuarterAvgs();
             }
             if(mLastHalf.size() > 15) {
                 mLastHalf.remove(0);
             }
             mLastHalf.add(value);
-            mLastQuadter.add(value);
+            mLastQuarter.add(value);
 
             sendLastHalfData();
 
@@ -59,7 +62,7 @@ public class SleepRecorderService extends Service {
     @Override
     public void onDestroy() {
         // TODO send start and end of measuring time
-        sendQuadterAvgsData();
+        sendQuarterAvgsData();
         endDateTime = new Date();
         mHandler.removeCallbacks(mRunnable);
         super.onDestroy();
@@ -75,33 +78,33 @@ public class SleepRecorderService extends Service {
         return (float) Math.random() * 100;
     }
 
-    private void updateQuadterAvgs() {
+    private void calculateQuarterAvgs() {
         float sum = 0f;
-        for(Float number : mLastQuadter) {
-            sum += number.floatValue();
+        for(Float number : mLastQuarter) {
+            sum += number;
         }
-        mQuadterAvgs.add(Float.valueOf(sum / mLastQuadter.size()));
-        mLastQuadter.clear();
+        mQuarterAvgs.add(sum / mLastQuarter.size());
+        mLastQuarter.clear();
     }
 
     private void sendLastHalfData() {
         float[] arr = new float[mLastHalf.size()];
         for(int i = 0; i < mLastHalf.size(); ++i) {
-            arr[i] = mLastHalf.get(i).floatValue();
+            arr[i] = mLastHalf.get(i);
         }
         Intent intent = new Intent();
-        intent.setAction("LAST_HALF_SLEEPING_DATA");
+        intent.setAction(ACTION_GET_REALTIME_DATA);
         intent.putExtra("DATA", arr);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
-    private void sendQuadterAvgsData() {
-        float[] arr = new float[mQuadterAvgs.size()];
-        for(int i = 0; i < mQuadterAvgs.size(); ++i) {
-            arr[i] = mQuadterAvgs.get(i).floatValue();
+    private void sendQuarterAvgsData() {
+        float[] arr = new float[mQuarterAvgs.size()];
+        for(int i = 0; i < mQuarterAvgs.size(); ++i) {
+            arr[i] = mQuarterAvgs.get(i);
         }
         Intent intent = new Intent();
-        intent.setAction("QUADTER_AVGS_SLEEPING_DATA");
+        intent.setAction(ACTION_GET_AVGS_DATA);
         intent.putExtra("DATA", arr);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }

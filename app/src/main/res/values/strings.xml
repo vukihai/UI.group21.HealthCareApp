@@ -20,10 +20,6 @@
         &lt;br /&gt;
         &lt;small&gt;100 bước nữa để đạt mục tiêu &lt;/ b&gt;
     </string>
-    <string name="heart_rate_measuring">Nhịp tim</string>
-    <string name="trending">Xu hướng</string>
-    <string name="heart_rate_monitor">Màn hình đo hịp tim</string>
-    <string name="result">Kết </string>
     <string name="edit_target_in_step_counter_message">Chỉnh sửa mục tiêu</string>
     <string name="ok_btn">Lưu</string>
     <string name="cancel_btn">Huỷ</string>
@@ -34,4 +30,15 @@
     <string name="stop_recording">Dừng</string>
     <string name="sleeping_history">Lịch sử</string>
     <string name="start_recording">Bắt đầu</string>
+
+    <string name="heart_rate_description">Press start to monitor you heart rate</string>
+    <string name="btn_start">Start</string>
+    <string name="trending">Trending</string>
+    <string name="heart_rate_monitor">Heart rate</string>
+    <string name="heart_rate_measuring">Measuring your heart rate</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_pause">Pause</string>
+    <string name="result">Result</string>
+    <string name="heart_rate_monitor_guide">Place your finger on your camera</string>
+    <string name="btn_save">Save</string>
 </resources>

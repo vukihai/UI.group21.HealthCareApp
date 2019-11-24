@@ -1,6 +1,7 @@
 package ui.group21.HealthCareApp.sleep_recorder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.content.BroadcastReceiver;
@@ -8,14 +9,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +49,7 @@ public class SleepRecorderActivity extends AppCompatActivity {
         }
     };
 
-    private final BroadcastReceiver mQuadterAvgsBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mQuarterAvgsBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
@@ -76,24 +85,28 @@ public class SleepRecorderActivity extends AppCompatActivity {
         initActions();
     }
 
-    private LineData generateLineData(float[] data) {
-        List<Entry> entries = new ArrayList<>();
-        for(int i = 0; i < data.length; ++i) {
-            entries.add(new Entry((float) i, data[i]));
-        }
-        LineDataSet dataSet = new LineDataSet(entries, "Timeline");
-        return new LineData(dataSet);
-    }
-
     private void initViews() {
         mStartRecordingBtn         = findViewById(R.id.buttonStartRecording);
         mStopRecordingBtn          = findViewById(R.id.buttonStopRecording);
         mHistoryBtn                = findViewById(R.id.buttonHistory);
+
         mSleepingTimelineChart     = findViewById(R.id.chartSleepingTimeline);
 
-        mSleepingTimelineChart.setDrawGridBackground(false);
-        mSleepingTimelineChart.setBackgroundColor(Color.BLACK);
-        mSleepingTimelineChart.setDrawBorders(false);
+        mSleepingTimelineChart.setViewPortOffsets(0f, 0f, 0f, 0f);
+
+        mSleepingTimelineChart.getAxisLeft().setDrawAxisLine(false);
+        mSleepingTimelineChart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+
+        mSleepingTimelineChart.getAxisRight().setDrawGridLines(false);
+        mSleepingTimelineChart.getAxisRight().setDrawAxisLine(false);
+        mSleepingTimelineChart.getAxisRight().setDrawLabels(false);
+
+        mSleepingTimelineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        mSleepingTimelineChart.getXAxis().setDrawGridLines(false);
+        mSleepingTimelineChart.getXAxis().setDrawAxisLine(false);
+
+        mSleepingTimelineChart.getDescription().setEnabled(false);
+        mSleepingTimelineChart.getLegend().setEnabled(false);
 
         findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.VISIBLE);
         findViewById(R.id.linearStopContainer).setVisibility((View.INVISIBLE));
@@ -101,12 +114,12 @@ public class SleepRecorderActivity extends AppCompatActivity {
 
     private void initActions() {
         IntentFilter lastHalfFilter = new IntentFilter();
-        lastHalfFilter.addAction("LAST_HALF_SLEEPING_DATA");
+        lastHalfFilter.addAction(SleepRecorderService.ACTION_GET_REALTIME_DATA);
         LocalBroadcastManager.getInstance(this).registerReceiver(mLastHalfBroadcastReceiver, lastHalfFilter);
 
-        IntentFilter quadterAvgsFilter = new IntentFilter();
-        quadterAvgsFilter.addAction("QUADTER_AVGS_SLEEPING_DATA");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mQuadterAvgsBroadcastReceiver, quadterAvgsFilter);
+        IntentFilter quarterAvgsFilter = new IntentFilter();
+        quarterAvgsFilter.addAction(SleepRecorderService.ACTION_GET_AVGS_DATA);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mQuarterAvgsBroadcastReceiver, quarterAvgsFilter);
 
         mStartRecordingBtn.setOnClickListener(mStartRecordingBtnOnClickListener);
         mStopRecordingBtn.setOnClickListener(mStopRecordingBtnOnClickListener);
@@ -128,5 +141,24 @@ public class SleepRecorderActivity extends AppCompatActivity {
     private void updateSleepingTimelineChart(LineData lineData) {
         mSleepingTimelineChart.setData(lineData);
         mSleepingTimelineChart.invalidate();
+    }
+
+    private LineData generateLineData(float[] data) {
+        List<Entry> entries = new ArrayList<>();
+        for(int i = 0; i < data.length; ++i) {
+            entries.add(new Entry((float) i, data[i]));
+        }
+        LineDataSet dataSet = new LineDataSet(entries, "Timeline");
+        dataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        dataSet.setDrawValues(false);
+        dataSet.setDrawCircles(false);
+        dataSet.setDrawFilled(true);
+        if (Utils.getSDKInt() >= 18) {
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.sleeping_depth_gradient);
+            dataSet.setFillDrawable(drawable);
+        } else {
+            dataSet.setFillColor(Color.BLACK);
+        }
+        return new LineData(dataSet);
     }
 }
