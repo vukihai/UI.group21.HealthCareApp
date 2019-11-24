@@ -12,4 +12,12 @@
     <color name="step_chart">#FFFFFF</color>
     <color name="black">#111111</color>
 
+
+    <color name="hrDarkBlue">#2962FF</color>
+    <color name="hrLightBlue">#0091EA</color>
+    <color name="hrDarkRed">#D50000</color>
+    <color name="hrLightRed">#DD2C00</color>
+    <color name="hrWhiteRed">#FF9D9D</color>
+    <color name="hrWhiteBlue">#00B8D4</color>
+    <color name="hrLightBackground">#FAFAFA</color>
 </resources>
