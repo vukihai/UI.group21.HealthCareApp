@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 import ui.group21.HealthCareApp.heart_rate_monitor.HeartRateMonitorActivity;
 import ui.group21.HealthCareApp.route_tracker.RouteTrackerActivity;
 import ui.group21.HealthCareApp.sleep_recorder.SleepRecorderActivity;
+import ui.group21.HealthCareApp.smart_alarm.SmartAlarmActivity;
 import ui.group21.HealthCareApp.step_counter.StepCounterActivity;
 
 /**
@@ -25,8 +26,8 @@ import ui.group21.HealthCareApp.step_counter.StepCounterActivity;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     DrawerLayout mDrawerLayout;
-    Button heartRateButton, stepButton, routeButton, sleepButton;
-    Intent heartRateIntent, stepIntent,routeIntent,sleepIntent;
+    Button heartRateButton, stepButton, routeButton, sleepButton, smartAlarmButton, profileButton;
+    Intent heartRateIntent, stepIntent,routeIntent,sleepIntent, smartAlarmIntent, profileIntent;
     Context thisContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         actionbar.setTitle("");
-
         initView();
 
         //drawer
@@ -62,11 +62,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stepButton = findViewById(R.id.btn_step);
         routeButton = findViewById(R.id.btn_route);
         sleepButton = findViewById(R.id.btn_sleep);
+        smartAlarmButton = findViewById(R.id.btn_smart_alarm);
+        profileButton = findViewById(R.id.btn_profile);
 
         heartRateButton.setOnClickListener(this);
         stepButton.setOnClickListener(this);
         routeButton.setOnClickListener(this);
         sleepButton.setOnClickListener(this);
+        smartAlarmButton.setOnClickListener(this);
+        profileButton.setOnClickListener(this);
     }
 
     @Override
@@ -98,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_sleep:
                 sleepIntent = new Intent(thisContext, SleepRecorderActivity.class);
                 startActivity(sleepIntent);
+                break;
+            case R.id.btn_smart_alarm:
+                smartAlarmIntent = new Intent(thisContext, SmartAlarmActivity.class);
+                startActivity(smartAlarmIntent);
+                break;
+            case R.id.btn_profile:
+                profileIntent = new Intent(thisContext, UserProfileActivity.class);
+                startActivity(profileIntent);
                 break;
         }
     }

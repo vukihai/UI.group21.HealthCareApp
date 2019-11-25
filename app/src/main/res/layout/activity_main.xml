@@ -79,7 +79,21 @@
                     app:layout_constraintLeft_toRightOf="@id/guideline_header_vertical"
                     app:layout_constraintTop_toBottomOf="@id/guideline_header_horizon"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <Button
+                android:id="@+id/btn_goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="goal" />
+            <Button
+                android:id="@+id/btn_smart_alarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="smart alarm" />
+            <Button
+                android:id="@+id/btn_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="user profile" />
         </LinearLayout>
     </FrameLayout>
     <com.google.android.material.navigation.NavigationView
@@ -90,6 +104,7 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer_main"
         app:headerLayout="@layout/nav_header">
+
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
