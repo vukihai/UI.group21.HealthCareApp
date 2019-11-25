@@ -29,8 +29,56 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="GOOD"
-                android:textColor="@color/colorMainStatus"
+                android:textColor="@color/colorPrimary"
                 android:textSize="80sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_header_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_header_horizon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.5"/>
+
+                <Button
+                    android:id="@+id/btn_heart_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="heart rate"
+                    app:layout_constraintRight_toLeftOf="@id/guideline_header_vertical"
+                    app:layout_constraintBottom_toTopOf="@id/guideline_header_horizon"/>
+                <Button
+                    android:id="@+id/btn_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="step"
+                    app:layout_constraintLeft_toRightOf="@id/guideline_header_vertical"
+                    app:layout_constraintBottom_toTopOf="@id/guideline_header_horizon"/>
+                <Button
+                    android:id="@+id/btn_route"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="route"
+                    app:layout_constraintRight_toLeftOf="@id/guideline_header_vertical"
+                    app:layout_constraintTop_toBottomOf="@id/guideline_header_horizon"/>
+                <Button
+                    android:id="@+id/btn_sleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sleep"
+                    app:layout_constraintLeft_toRightOf="@id/guideline_header_vertical"
+                    app:layout_constraintTop_toBottomOf="@id/guideline_header_horizon"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </FrameLayout>
