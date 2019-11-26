@@ -9,8 +9,7 @@
         android:id="@+id/scrollView"
         style="@style/AppTheme"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,8 +26,8 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="30sp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:textColor="#74b9ff"
+                 />
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -44,10 +43,10 @@
                         android:layout_height="300dp"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        app:cpb_background_progressbar_color="#DAFAEA"
+                        app:cpb_background_progressbar_color="#74b9ff"
                         app:cpb_background_progressbar_width="2dp"
                         app:cpb_progress_direction="to_right"
-                        app:cpb_progressbar_color="#69F79C"
+                        app:cpb_progressbar_color="#0984e3"
                         app:cpb_progressbar_width="10dp"
                         app:cpb_round_border="false" />
                     <ImageView
@@ -57,7 +56,7 @@
                         android:layout_marginLeft="55dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="16dp"
-                        app:srcCompat="@drawable/icon" />
+                        app:srcCompat="@drawable/ic_footsteps" />
                     <TextView
                         android:id="@+id/num_step_today"
                         android:layout_width="100dp"
@@ -69,14 +68,14 @@
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textSize="30sp"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/color_step_counter_content"
                         android:textStyle="bold" />
                     <View
                         android:layout_width="140dp"
                         android:layout_height="1dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:background="#FFFFFF" />
+                        android:background="@color/color_step_counter_content" />
                     <ImageView
                         android:id="@+id/imageView5"
                         android:layout_width="20dp"
@@ -94,7 +93,7 @@
                         android:layout_marginTop="46dp"
                         android:background="@android:color/transparent"
                         android:text="1500"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/color_step_counter_content"
                         android:textAllCaps="false"
                         android:textStyle="bold" />
                     <ImageView
@@ -104,7 +103,7 @@
                         android:layout_marginLeft="45dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="46dp"
-                        app:srcCompat="@drawable/icon" />
+                        app:srcCompat="@drawable/ic_footsteps" />
 
                 </FrameLayout>
 
@@ -124,6 +123,8 @@
                         android:layout_marginLeft="15sp"
                         android:layout_weight="1"
                         android:gravity="start|center"
+                        android:textColor="@color/color_step_counter_content"
+
                         android:text=" 0 phút"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -136,6 +137,8 @@
                         android:gravity="start|center_vertical"
                         android:text="|"
                         android:textAllCaps="false"
+                        android:textColor="@color/color_step_counter_content"
+
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -145,6 +148,8 @@
                         android:layout_height="45dp"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
+                        android:textColor="@color/color_step_counter_content"
+
                         android:text=" 0 km"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -157,6 +162,7 @@
                         android:gravity="start|center_vertical"
                         android:text="|"
                         android:textAllCaps="false"
+                        android:textColor="@color/color_step_counter_content"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -166,6 +172,8 @@
                         android:layout_height="45dp"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
+                        android:textColor="@color/color_step_counter_content"
+
                         android:text=" 0 calos"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -199,10 +207,11 @@
             <FrameLayout
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart1"
+                android:layout_margin="20dp"
+                android:layout_height="360dp">
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/historyStepCounterChart"
+                    android:outlineSpotShadowColor="@color/color_step_counter_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>

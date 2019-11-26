@@ -19,4 +19,5 @@
     <color name="hrWhiteRed">#FF9D9D</color>
     <color name="hrWhiteBlue">#00B8D4</color>
     <color name="hrLightBackground">#FAFAFA</color>
+    <color name="color_step_counter_content">#74b9ff</color>
 </resources>

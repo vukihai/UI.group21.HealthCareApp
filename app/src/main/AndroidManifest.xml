@@ -11,11 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".heart_rate_monitor.HeartRateMonitorActivity" />
-        </activity>
+        <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".inavtive_time_reminder.InactiveTimeReminderActivity" />
         <activity android:name=".smart_alarm.SmartAlarmActivity" />

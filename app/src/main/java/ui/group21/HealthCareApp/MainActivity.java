@@ -35,12 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         thisContext = this;
         // toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-        actionbar.setTitle("");
+//        @Todo: Phần này Quang Linh làm bị lỗi, chưa biết cách sửa :))
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+////        setSupportActionBar(toolbar);
+//        ActionBar actionbar = getSupportActionBar();
+//        actionbar.setDisplayHomeAsUpEnabled(true);
+//        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+//        actionbar.setTitle("");
+//        @Todo: Quang Linh đã cmt cho đến phần này :v
         initView();
 
         //drawer
