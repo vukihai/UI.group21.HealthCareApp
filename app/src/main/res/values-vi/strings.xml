@@ -42,4 +42,5 @@
     <string name="result">Kết quả</string>
     <string name="heart_rate_monitor_guide">Đặt ngón tay che kín camera sau</string>
     <string name="btn_save">Lưu lại</string>
+    <string name="google_maps_key">AIzaSyC1F4GkT6vBKNnhCfW3NI6oGP_eHCOvVfA</string>
 </resources>
