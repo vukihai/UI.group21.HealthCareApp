@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ui.group21.HealthCareApp">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,17 +21,19 @@
         <activity android:name=".route_tracker.RouteTrackerActivity" />
         <activity android:name=".step_counter.StepCounterResultsActivity">
             </activity>
-        <activity android:name=".step_counter.StepCounterActivity" ><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".heart_rate_monitor.HeartRateResultActivity" />
-        <activity android:name=".heart_rate_monitor.HeartRateMonitorActivity">
+        <activity android:name=".step_counter.StepCounterActivity" ></activity>
+        <activity android:name=".MainActivity" android:theme="@style/Theme.Design.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+		</activity>
+        <activity android:name=".heart_rate_monitor.HeartRateMonitorActivity">   
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <service android:name=".sleep_recorder.SleepRecorderService" />
     </application>
 
 </manifest>

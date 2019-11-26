@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorMainStatus">#00FF44</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorMainStatus">#00FF44</color>
     <color name="white">#FFFFFF</color>
     <color name="colorGray">#D0D1D1</color>
     <color name="homeActionBar">#76BDEF</color>
@@ -12,6 +12,14 @@
     <color name="step_background">#00838F</color>
     <color name="step_chart">#FFFFFF</color>
     <color name="black">#111111</color>
+    <color name="hrDarkBlue">#2962FF</color>
+    <color name="hrLightBlue">#0091EA</color>
+    <color name="hrDarkRed">#D50000</color>
+    <color name="hrLightRed">#DD2C00</color>
+    <color name="hrWhiteRed">#FF9D9D</color>
+    <color name="hrWhiteBlue">#00B8D4</color>
+    <color name="hrLightBackground">#FAFAFA</color>
+    <color name="step_background">#00838F</color>
+    <color name="step_chart">#FFFFFF</color>
     <color name="color_step_counter_content">#74b9ff</color>
-
 </resources>
