@@ -1,11 +1,13 @@
 package ui.group21.HealthCareApp.step_counter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,7 +54,8 @@ public class StepCounterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setTitle("Đếm bước");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         target = 2000;
         setContentView(R.layout.activity_step_counter);
         mStepChart = findViewById(R.id.historyStepCounterChart);
@@ -98,6 +101,16 @@ public class StepCounterActivity extends AppCompatActivity {
         });
         setChartData();
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateProgress() {
