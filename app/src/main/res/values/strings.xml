@@ -41,4 +41,5 @@
     <string name="result">Result</string>
     <string name="heart_rate_monitor_guide">Place your finger on your camera</string>
     <string name="btn_save">Save</string>
+    <string name="google_maps_key">AIzaSyC1F4GkT6vBKNnhCfW3NI6oGP_eHCOvVfA</string>
 </resources>
