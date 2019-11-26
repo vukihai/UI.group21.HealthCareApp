@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
-            android:background="@drawable/border_user_profile"
+            android:background="@drawable/border_radius"
             android:orientation="vertical">
 
             <TextView
@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
-            android:background="@drawable/border_user_profile"
+            android:background="@drawable/border_radius"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -236,17 +236,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_margin="24dp"
+                android:layout_margin="20dp"
                 android:text="Hủy"
-                android:background="@drawable/border_user_profile"></Button>
+                android:background="@drawable/border_radius"></Button>
             <Button
                 android:id="@+id/btn_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lưu"
-                android:layout_margin="24dp"
-                android:background="@drawable/border_user_profile"></Button>
+                android:layout_margin="20dp"
+                android:background="@drawable/border_radius"></Button>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

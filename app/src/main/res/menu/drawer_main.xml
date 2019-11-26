@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-
-            android:title="tit1" />
+            android:id="@+id/nav_profile"
+            android:title="Hồ sơ" />
         <item
-            android:id="@+id/nav_gallery"
-
-            android:title="tit2" />
+            android:id="@+id/nav_units"
+            android:title="Đơn vị" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_ranking"
+            android:title="Xếp hạng" />
+<!--        <item-->
+<!--            android:id="@+id/nav_manage"-->
 
-            android:title="tit3" />
-        <item
-            android:id="@+id/nav_manage"
-
-            android:title="tit4" />
+<!--            android:title="tit4" />-->
     </group>
 </menu>

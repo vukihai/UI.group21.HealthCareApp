@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:itemBackground="@drawable/gradient"
     android:fitsSystemWindows="true">
 
     <ScrollView
@@ -281,6 +282,7 @@
                 android:text="Báo thức thông minh"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
+
             <Button
                 android:id="@+id/btn_sleep"
                 android:layout_width="match_parent"
