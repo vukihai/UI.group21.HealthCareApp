@@ -23,7 +23,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="@color/white"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
             <TextView
@@ -119,7 +119,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/tv_step"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_header_vertical"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/guideline_header_horizon"
+                     />
 
                 <Button
                     android:id="@+id/btn_step"
@@ -148,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:text="3453 bước"
                     android:textColor="#74b9ff"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline_header_horizon"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@+id/guideline_header_vertical"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/circle_step" />
@@ -203,7 +204,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/circle_route" />
 
                 <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                    android:id="@+id/circle_sleep"
+                    android:id="@+id/circle_calos"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_gravity="center"
@@ -214,10 +215,11 @@
                     app:cpb_progressbar_color="#0984e3"
                     app:cpb_progressbar_width="10dp"
                     app:cpb_round_border="false"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/tv_calo"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_header_vertical"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/guideline_header_horizon" />
+                     />
 
                 <Button
                     android:id="@+id/btn_calo"
@@ -225,10 +227,10 @@
                     android:layout_height="130dp"
                     android:background="#00000000"
 
-                    app:layout_constraintBottom_toBottomOf="@+id/circle_sleep"
-                    app:layout_constraintLeft_toLeftOf="@+id/circle_sleep"
-                    app:layout_constraintRight_toRightOf="@+id/circle_sleep"
-                    app:layout_constraintTop_toTopOf="@+id/circle_sleep" />
+                    app:layout_constraintBottom_toBottomOf="@+id/circle_calos"
+                    app:layout_constraintLeft_toLeftOf="@+id/circle_calos"
+                    app:layout_constraintRight_toRightOf="@+id/circle_calos"
+                    app:layout_constraintTop_toTopOf="@+id/circle_calos" />
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -247,10 +249,10 @@
                     android:layout_height="wrap_content"
                     android:text="5234 Kcalo"
                     android:textColor="#FF7300"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/guideline_header_horizon"
                     app:layout_constraintLeft_toLeftOf="@+id/guideline_header_vertical"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/circle_sleep" />
+                    app:layout_constraintTop_toBottomOf="@id/circle_calos" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
