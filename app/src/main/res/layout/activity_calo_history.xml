@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".step_counter.StepCounterActivity">
+    tools:context=".calos_history.CaloHistoryActivity">
     <ScrollView
         android:id="@+id/scrollView"
         style="@style/AppTheme"
@@ -26,8 +26,8 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="30sp"
-                android:textColor="#74b9ff"
-                 />
+                android:textColor="#FF5722"
+                />
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -37,24 +37,24 @@
                     android:layout_height="232dp">
 
                     <TextView
-                        android:id="@+id/tv_status_step_counter"
+                        android:id="@+id/tv_status_calo_history"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="105dp"
                         android:text="Vượt mục tiêu"
-                        android:textColor="#0984e3" />
+                        android:textColor="#FF5722" />
 
                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                        android:id="@+id/circle_step"
+                        android:id="@+id/circle_calo"
                         android:layout_width="180dp"
                         android:layout_height="300dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
-                        app:cpb_background_progressbar_color="#74b9ff"
+                        app:cpb_background_progressbar_color="@color/color_calos_history_content"
                         app:cpb_background_progressbar_width="2dp"
                         app:cpb_progress_direction="to_right"
-                        app:cpb_progressbar_color="#0984e3"
+                        app:cpb_progressbar_color="#FF5722"
                         app:cpb_progressbar_width="10dp"
                         app:cpb_round_border="false" />
 
@@ -65,11 +65,11 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="55dp"
                         android:layout_marginBottom="16dp"
-                        app:srcCompat="@drawable/ic_footsteps"
+                        app:srcCompat="@drawable/ic_fire_svgrepo_com"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
-                        android:id="@+id/num_step_today"
+                        android:id="@+id/num_calo_today"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -78,7 +78,7 @@
                         android:text="19256"
                         android:textAlignment="center"
                         android:textAllCaps="false"
-                        android:textColor="@color/color_step_counter_content"
+                        android:textColor="@color/color_calos_history_content"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
@@ -87,7 +87,7 @@
                         android:layout_height="1dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:background="@color/color_step_counter_content" />
+                        android:background="@color/color_calos_history_content" />
 
                     <ImageView
                         android:id="@+id/imageView5"
@@ -96,11 +96,11 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="46dp"
                         android:layout_marginRight="45dp"
-                        app:srcCompat="@drawable/ic_target_step"
+                        app:srcCompat="@drawable/ic_target_calos"
                         tools:ignore="VectorDrawableCompat" />
 
                     <Button
-                        android:id="@+id/change_target_btn"
+                        android:id="@+id/change_calo_target_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -108,7 +108,7 @@
                         android:background="@android:color/transparent"
                         android:text="1500"
                         android:textAllCaps="false"
-                        android:textColor="@color/color_step_counter_content"
+                        android:textColor="@color/color_calos_history_content"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -118,90 +118,19 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="45dp"
                         android:layout_marginTop="46dp"
-                        app:srcCompat="@drawable/ic_footsteps"
+                        app:srcCompat="@drawable/ic_fire_svgrepo_com"
                         tools:ignore="VectorDrawableCompat" />
 
                 </FrameLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="210dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_time_walk_step_counter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="15sp"
-                        android:layout_weight="1"
-                        android:gravity="start|center"
-                        android:textColor="@color/color_step_counter_content"
-
-                        android:text=" 0 phút"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/textVi2"
-                        android:layout_width="10dp"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:gravity="start|center_vertical"
-                        android:text="|"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_step_counter_content"
-
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_distance_step_counter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/color_step_counter_content"
-
-                        android:text=" 0 km"
-                        android:textSize="16sp"
-
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:gravity="start|center_vertical"
-                        android:text="|"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_step_counter_content"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_calos_step_counter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/color_step_counter_content"
-
-                        android:text=" 0 calos"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
             </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="282dp"
+                android:layout_height="336dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/border_radius">
@@ -211,15 +140,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Lịch sử"
-                    android:textColor="@color/color_step_counter_content"
+                    android:textColor="@color/color_calos_history_content"
                     android:textSize="16sp" />
 
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/historyStepCounterChart"
+                    android:id="@+id/historyCaloCounterChart"
                     android:layout_width="match_parent"
-                    android:layout_height="252dp"
-                    android:layout_marginTop="10dp"
-                    android:outlineSpotShadowColor="@color/color_step_counter_content" />
+                    android:layout_height="291dp"
+                    android:layout_marginTop="25dp"
+                    android:outlineSpotShadowColor="@color/color_calos_history_content" />
             </FrameLayout>
         </LinearLayout>
     </ScrollView>

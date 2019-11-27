@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -44,7 +45,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".step_counter.StepCounterResultsActivity"></activity>
+        <activity android:name=".step_counter.StepCounterResultsActivity" />
         <activity android:name=".step_counter.StepCounterActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -55,6 +56,7 @@
             android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -64,6 +66,11 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".heart_rate_monitor.HeartRateResultActivity" />
+        <activity android:name=".calos_history.CaloHistoryActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <service android:name=".sleep_recorder.SleepRecorderService" />
     </application>

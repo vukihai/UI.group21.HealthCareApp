@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import ui.group21.HealthCareApp.calos_history.CaloHistoryActivity;
 import ui.group21.HealthCareApp.heart_rate_monitor.HeartRateMonitorActivity;
 import ui.group21.HealthCareApp.route_tracker.RouteTrackerActivity;
 import ui.group21.HealthCareApp.sleep_recorder.SleepRecorderActivity;
@@ -29,8 +30,8 @@ import ui.group21.HealthCareApp.step_counter.StepCounterActivity;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     DrawerLayout mDrawerLayout;
     ListView mListView;
-    Button heartRateButton, stepButton, routeButton, sleepButton, smartAlarmButton, profileButton;
-    Intent heartRateIntent, stepIntent,routeIntent,sleepIntent, smartAlarmIntent, profileIntent;
+    Button heartRateButton, stepButton, routeButton, sleepButton, smartAlarmButton, profileButton, caloButton;
+    Intent heartRateIntent, stepIntent,routeIntent,sleepIntent, smartAlarmIntent, profileIntent,caloIntent;
     Context thisContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +72,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sleepButton = findViewById(R.id.btn_sleep);
         smartAlarmButton = findViewById(R.id.btn_smart_alarm);
         profileButton = findViewById(R.id.btn_profile);
-
+        caloButton=findViewById(R.id.btn_calo_history);
         heartRateButton.setOnClickListener(this);
         stepButton.setOnClickListener(this);
         routeButton.setOnClickListener(this);
         sleepButton.setOnClickListener(this);
         smartAlarmButton.setOnClickListener(this);
         profileButton.setOnClickListener(this);
+        caloButton.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +120,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_profile:
                 profileIntent = new Intent(thisContext, UserProfileActivity.class);
                 startActivity(profileIntent);
+                break;
+            case R.id.btn_calo_history:
+                Log.d("calo","BTN CLICK CALO");
+                caloIntent = new Intent(thisContext, CaloHistoryActivity.class);
+                startActivity(caloIntent);
                 break;
         }
     }
