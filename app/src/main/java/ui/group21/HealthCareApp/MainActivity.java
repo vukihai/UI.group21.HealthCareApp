@@ -9,12 +9,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import ui.group21.HealthCareApp.calos_history.CaloHistoryActivity;
 import ui.group21.HealthCareApp.heart_rate_monitor.HeartRateMonitorActivity;
 import ui.group21.HealthCareApp.route_tracker.RouteTrackerActivity;
 import ui.group21.HealthCareApp.sleep_recorder.SleepRecorderActivity;
@@ -26,8 +29,9 @@ import ui.group21.HealthCareApp.step_counter.StepCounterActivity;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     DrawerLayout mDrawerLayout;
-    Button heartRateButton, stepButton, routeButton, sleepButton, smartAlarmButton, profileButton;
-    Intent heartRateIntent, stepIntent,routeIntent,sleepIntent, smartAlarmIntent, profileIntent;
+    ListView mListView;
+    Button heartRateButton, stepButton, routeButton, sleepButton, smartAlarmButton, profileButton, caloButton;
+    Intent heartRateIntent, stepIntent,routeIntent,sleepIntent, smartAlarmIntent, profileIntent,caloIntent;
     Context thisContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +39,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         thisContext = this;
         // toolbar
-//        @Todo: Phần này Quang Linh làm bị lỗi, chưa biết cách sửa :))
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-////        setSupportActionBar(toolbar);
-//        ActionBar actionbar = getSupportActionBar();
-//        actionbar.setDisplayHomeAsUpEnabled(true);
-//        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-//        actionbar.setTitle("");
-//        @Todo: Quang Linh đã cmt cho đến phần này :v
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        actionbar.setTitle("");
         initView();
 
         //drawer
         mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout.setBackgroundResource(R.drawable.gradient);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
+                        if(menuItem.getItemId()==R.id.nav_profile){
+                            profileIntent = new Intent(thisContext, UserProfileActivity.class);
+                            startActivity(profileIntent);
+                        }
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -66,17 +72,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sleepButton = findViewById(R.id.btn_sleep);
         smartAlarmButton = findViewById(R.id.btn_smart_alarm);
         profileButton = findViewById(R.id.btn_profile);
-
+        caloButton=findViewById(R.id.btn_calo_history);
         heartRateButton.setOnClickListener(this);
         stepButton.setOnClickListener(this);
         routeButton.setOnClickListener(this);
         sleepButton.setOnClickListener(this);
         smartAlarmButton.setOnClickListener(this);
         profileButton.setOnClickListener(this);
+        caloButton.setOnClickListener(this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("main_activity",String.valueOf(item.getItemId() == R.id.nav_profile));
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -112,6 +120,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_profile:
                 profileIntent = new Intent(thisContext, UserProfileActivity.class);
                 startActivity(profileIntent);
+                break;
+            case R.id.btn_calo_history:
+                Log.d("calo","BTN CLICK CALO");
+                caloIntent = new Intent(thisContext, CaloHistoryActivity.class);
+                startActivity(caloIntent);
                 break;
         }
     }

@@ -1,10 +1,11 @@
-package ui.group21.HealthCareApp.step_counter;
+package ui.group21.HealthCareApp.calos_history;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
 import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,53 +29,43 @@ import java.util.Date;
 import java.util.List;
 
 import ui.group21.HealthCareApp.R;
+import ui.group21.HealthCareApp.calos_history.CaloHistoryActivity;
 
 import static java.lang.Integer.parseInt;
 
-/**
- * đếm bước. #1.5 và #1.6
- */
-public class StepCounterActivity extends AppCompatActivity {
+public class CaloHistoryActivity extends AppCompatActivity {
     private Button mEditTargetBtn;
     private Button mSaveBtn;
     private Button mCancelBtn;
-    private TextView mStepCountTodayTextView;
+    private TextView mCaloCountTodayTextView;
     private EditText mEditTargetValue;
     private TextView mStatusTextView;
-    private TextView mTimeWalkTextView;
-    private TextView mCalosTextView;
-    private TextView mDistanceTextView;
     private Dialog mEditTargetDialog;
     private int target;
-    private int step_count_today;
-    private LineChart mStepChart;
-    private CircularProgressBar mCircleStep;
-
-
+    private int Calo_count_today;
+    private LineChart mCaloChart;
+    private CircularProgressBar mCircleCalo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Đếm bước");
+        Log.d("calo","here");
+        setContentView(R.layout.activity_calo_history);
+        setTitle("Năng lượng tiêu thụ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        target = 2000;
-        setContentView(R.layout.activity_step_counter);
-        mStepChart = findViewById(R.id.historyStepCounterChart);
-        mEditTargetDialog = new Dialog(StepCounterActivity.this);
-        mCalosTextView=findViewById(R.id.tv_calos_step_counter);
-        mTimeWalkTextView= findViewById(R.id.tv_time_walk_step_counter);
-        mDistanceTextView=findViewById(R.id.tv_distance_step_counter);
-        mStatusTextView=findViewById(R.id.tv_status_step_counter);
-        mStepCountTodayTextView = findViewById(R.id.num_step_today);
-        mStepCountTodayTextView.setText(String.valueOf(step_count_today));
-        mEditTargetBtn = findViewById(R.id.change_target_btn);
+        mCaloChart = findViewById(R.id.historyCaloCounterChart);
+        mStatusTextView=findViewById(R.id.tv_status_calo_history);
+        mCaloCountTodayTextView = findViewById(R.id.num_calo_today);
+        mCaloCountTodayTextView.setText(String.valueOf(Calo_count_today));
+        mEditTargetDialog = new Dialog(CaloHistoryActivity.this);
+        mEditTargetBtn = findViewById(R.id.change_calo_target_btn);
         mEditTargetBtn.setText(String.valueOf(target));
-        mEditTargetDialog.setContentView(R.layout.dialog_edit_target_step);
-        mEditTargetValue = mEditTargetDialog.findViewById(R.id.target_value_editText);
-        mSaveBtn = mEditTargetDialog.findViewById(R.id.save_target_action);
-        mCancelBtn = mEditTargetDialog.findViewById(R.id.cancel_target_action);
-        mCircleStep = findViewById(R.id.circle_step);
+        mEditTargetDialog.setContentView(R.layout.dialog_edit_target_calos);
+        mEditTargetValue = mEditTargetDialog.findViewById(R.id.target_calo_value_editText);
+        mSaveBtn = mEditTargetDialog.findViewById(R.id.save_calo_target_action);
+        mCancelBtn = mEditTargetDialog.findViewById(R.id.cancel_calo_target_action);
+        mCircleCalo = findViewById(R.id.circle_calo);
 // Set Progress
-        mCircleStep.setProgress(65f);
+        mCircleCalo.setProgress(65f);
         mEditTargetBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -100,7 +91,6 @@ public class StepCounterActivity extends AppCompatActivity {
             }
         });
         setChartData();
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -114,15 +104,12 @@ public class StepCounterActivity extends AppCompatActivity {
     }
 
     private void updateProgress() {
-        float percent=step_count_today * 100 / target;
-        float distante= (float) (step_count_today*0.00045);
-        mTimeWalkTextView.setText(String.format("%.2f",distante/5).concat( " giờ"));
-        mCalosTextView.setText(String.format("%.2f",step_count_today*0.85/40).concat( " kcalos"));
-        mDistanceTextView.setText(String.format("%.2f",distante).concat(" km"));
-        mCircleStep.setProgress(percent);
+        float percent=Calo_count_today * 100 / target;
+        float distante= (float) (Calo_count_today*0.00045);
+        mCircleCalo.setProgress(percent);
         if(percent>=100) mStatusTextView.setText("Xuất sắc, bạn đã vượt mục tiêu");
         else if(percent>70) mStatusTextView.setText("Cố lên, bạn sắp hoàn thành mục tiêu");
-        else mStatusTextView.setText("Cần đi lại nhiều hơn");
+        else mStatusTextView.setText("Cần hoạt động nhiều hơn để đốt cháy calo");
     }
 
     private void setChartData() {
@@ -130,7 +117,7 @@ public class StepCounterActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         cal.setTime(today); // don't forget this if date is arbitrary e.g. 01-01-2014
         int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH); // 17
-        Log.e("step_counter", String.valueOf(dayOfMonth));
+        Log.e("Calo_counter", String.valueOf(dayOfMonth));
         int range = 5000;
         final String[] days = generate_X_label(10);
         ValueFormatter formatter = new ValueFormatter() {
@@ -140,14 +127,14 @@ public class StepCounterActivity extends AppCompatActivity {
             }
 
         };
-        int chartColor = Color.rgb(116, 185, 255);
+        int chartColor = Color.rgb(255, 87, 34);
         List<Entry> valsComp1 = new ArrayList<Entry>();
         for (int i = 1; i <= dayOfMonth; i++) {
             float val = (float) (Math.random() * (range + 1));
             float x = (float) (i);
             if(i==dayOfMonth){
-                step_count_today=(int)val;
-                mStepCountTodayTextView.setText(String.valueOf(step_count_today));
+                Calo_count_today=(int)val;
+                mCaloCountTodayTextView.setText(String.valueOf(Calo_count_today));
                 updateProgress();
             }
             valsComp1.add(new Entry(x, val));
@@ -157,25 +144,25 @@ public class StepCounterActivity extends AppCompatActivity {
         lineDataSet.setLineWidth(3f);
         lineDataSet.setValueTextSize(10f);
         LineData lineData = new LineData(lineDataSet);
-        XAxis xAxis = mStepChart.getXAxis();
+        XAxis xAxis = mCaloChart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setValueFormatter(formatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
-        mStepChart.getDescription().setText("Tháng này");
-        mStepChart.fitScreen();
-        mStepChart.setData(lineData);
-        mStepChart.getAxisLeft().setEnabled(false);
-        mStepChart.getAxisRight().setEnabled(false);
-        mStepChart.setDrawBorders(false);
-        mStepChart.setVisibleXRangeMinimum(6);
-        mStepChart.setVisibleXRangeMaximum(6);
-        mStepChart.moveViewToX(dayOfMonth - 6);
-        mStepChart.setActivated(false);
-        mStepChart.setAutoScaleMinMaxEnabled(true);
-        mStepChart.setScaleEnabled(false);
-        mStepChart.getLegend().setEnabled(false);
+        mCaloChart.getDescription().setText("Tháng này");
+        mCaloChart.fitScreen();
+        mCaloChart.setData(lineData);
+        mCaloChart.getAxisLeft().setEnabled(false);
+        mCaloChart.getAxisRight().setEnabled(false);
+        mCaloChart.setDrawBorders(false);
+        mCaloChart.setVisibleXRangeMinimum(6);
+        mCaloChart.setVisibleXRangeMaximum(6);
+        mCaloChart.moveViewToX(dayOfMonth - 6);
+        mCaloChart.setActivated(false);
+        mCaloChart.setAutoScaleMinMaxEnabled(true);
+        mCaloChart.setScaleEnabled(false);
+        mCaloChart.getLegend().setEnabled(false);
     }
 
     private String[] generate_X_label( int month){

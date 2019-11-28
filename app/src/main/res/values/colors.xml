@@ -20,4 +20,5 @@
     <color name="hrWhiteBlue">#00B8D4</color>
     <color name="hrLightBackground">#FAFAFA</color>
     <color name="color_step_counter_content">#74b9ff</color>
+    <color name="color_calos_history_content">#FF7300</color>
 </resources>
