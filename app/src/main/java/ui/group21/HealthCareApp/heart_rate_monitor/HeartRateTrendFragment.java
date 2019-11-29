@@ -115,13 +115,14 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
      * History Recycler View: ViewHolder
      */
     public class HRHistoryViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTitle, txtHrValue;
+        TextView txtHRTime, txtHrValue, txtHrTitle;
         ImageView imgHRStatus;
         public HRHistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             imgHRStatus = itemView.findViewById(R.id.img_user_hr_status);
-            txtTitle = itemView.findViewById(R.id.tv_history_item_title);
+            txtHRTime = itemView.findViewById(R.id.tv_history_hr_timestamp);
             txtHrValue = itemView.findViewById(R.id.tv_history_hr_value);
+            txtHrTitle = itemView.findViewById(R.id.tv_history_hr_title);
         }
     }
 
@@ -139,8 +140,15 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
 
         @Override
         public void onBindViewHolder(@NonNull HRHistoryViewHolder holder, int position) {
-            holder.txtHrValue.setText(""+120+"bpm");
-            holder.txtTitle.setText("Go for a run"+position);
+            if (position == 0){
+                holder.txtHrValue.setText(""+98+"bpm");
+                if (true){ // no notes
+                    holder.txtHrTitle.setText("Resting"); // HR status
+                } else {
+                    holder.txtHrTitle.setText("After go for a run"); // Notes
+                }
+                holder.txtHRTime.setText("13:00");
+            }
         }
 
         @Override

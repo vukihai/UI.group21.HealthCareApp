@@ -13,11 +13,12 @@
     <color name="step_chart">#FFFFFF</color>
     <color name="black">#111111</color>
     <color name="hrDarkBlue">#2962FF</color>
-    <color name="hrLightBlue">#0091EA</color>
+    <color name="hrBlue">#0091EA</color>
+    <color name="hrLightBlue">#77CEF8</color>
     <color name="hrDarkRed">#D50000</color>
-    <color name="hrLightRed">#DD2C00</color>
-    <color name="hrWhiteRed">#FF9D9D</color>
-    <color name="hrWhiteBlue">#00B8D4</color>
+    <color name="hrRed">#DD2C00</color>
+    <color name="hrLightRed">#FF9D9D</color>
+    <color name="hrWhiteBlue">#77CEF8</color>
     <color name="hrLightBackground">#FAFAFA</color>
     <color name="color_step_counter_content">#74b9ff</color>
 </resources>

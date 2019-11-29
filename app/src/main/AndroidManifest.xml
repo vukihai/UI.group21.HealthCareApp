@@ -17,7 +17,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity" />
+        <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity" android:theme="@style/Theme.HeartRate" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".inavtive_time_reminder.InactiveTimeReminderActivity" />
         <activity android:name=".smart_alarm.SmartAlarmActivity" />
@@ -34,12 +34,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 		</activity>
-        <activity android:name=".heart_rate_monitor.HeartRateMonitorActivity">   
+        <activity android:name=".heart_rate_monitor.HeartRateMonitorActivity" android:theme="@style/Theme.HeartRate">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".heart_rate_monitor.HeartRateResultActivity"/>
+        <activity android:name=".heart_rate_monitor.HeartRateResultActivity" android:theme="@style/Theme.HeartRate"/>
         <service android:name=".sleep_recorder.SleepRecorderService" />
     </application>
 

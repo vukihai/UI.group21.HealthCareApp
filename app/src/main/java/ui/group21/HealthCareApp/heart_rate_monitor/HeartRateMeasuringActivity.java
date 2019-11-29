@@ -41,7 +41,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
     private TextView txtTempHrValue, txtTempHrBPM, txtHRGuideMessage;
     private LineChart chartHR;
 
-    int chartLineColor;
+    int chartLineColor, chartFillColor;
 
     ImageView imgHeart;
     ViewGroup.LayoutParams imgHeartLayoutParams;
@@ -75,6 +75,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         setContentView(R.layout.activity_heart_rate_measuring);
         setTitle(getString(R.string.heart_rate_measuring));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
 
         // init value
         started = false;
@@ -117,7 +118,8 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         LineData data = new LineData();
         data.setDrawValues(false);
 
-        chartLineColor = getResources().getColor(R.color.hrDarkBlue);
+        chartLineColor = getResources().getColor(R.color.hrDarkRed);
+        chartFillColor = getResources().getColor(R.color.hrRed);
 
         // add empty data
         chartHR.setData(data);
@@ -241,11 +243,11 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         set1.setDrawCircles(false);
         set1.setLineWidth(1.8f);
         set1.setCircleRadius(4f);
-        set1.setCircleColor(chartLineColor);
+//        set1.setCircleColor(chartLineColor);
         set1.setHighLightColor(getResources().getColor(R.color.hrWhiteBlue));
         set1.setColor(chartLineColor);
-        set1.setFillColor(chartLineColor);
-        set1.setFillAlpha(100);
+        set1.setFillColor(chartFillColor);
+        set1.setFillAlpha(200);
         set1.setDrawHorizontalHighlightIndicator(false);
         set1.setFillFormatter(new IFillFormatter() {
             @Override
@@ -356,6 +358,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
                                     txtTempHrValue.setText(String.valueOf(dpm));
                                     progressBar.setProgressWithAnimation(((float) beats - 4) * 100 / 40);
                                     txtHRGuideMessage.setText(getString(R.string.heart_rate_measuring));
+                                    txtTempHrBPM.setText("BPM");
                                 }
                             }
                             imgHeartLayoutParams.width = 30;
