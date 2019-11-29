@@ -10,22 +10,23 @@
     <ImageView
         android:id="@+id/imgHrStatus"
         android:layout_width="50dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_hr_run" />
 
     <TextView
-        android:id="@+id/tv_history_item_title"
+        android:id="@+id/tv_history_hr_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="Go for a run"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Resting"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_history_hr_timestamp"
         app:layout_constraintStart_toEndOf="@+id/imgHrStatus"
         app:layout_constraintTop_toTopOf="@+id/imgHrStatus" />
 
@@ -33,10 +34,19 @@
         android:id="@+id/tv_history_hr_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="120bpm"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_history_item_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_history_item_title" />
+        android:text="70bpm"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_history_hr_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_history_hr_title" />
+
+    <TextView
+        android:id="@+id/tv_history_hr_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="12:59"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_history_hr_title" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

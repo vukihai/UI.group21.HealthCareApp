@@ -19,15 +19,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_select_a_day_to_view_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:paddingVertical="16dp"
+                android:background="@drawable/border_radius_white_bg_top"
+                android:text="Select a day to view result" />
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart_weekly_hr"
                 android:layout_width="match_parent"
+                android:background="@drawable/border_radius_white_bg_bottom"
+                android:paddingBottom="16dp"
                 android:layout_height="200dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container_hr_avg_min_max"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border_radius_white_bg"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="8dp"
                 android:layout_marginTop="16dp">
 
                 <TextView
@@ -79,6 +93,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="60"
                     android:textSize="40sp"
+                    android:textColor="@color/hrRed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_avg_label" />
@@ -90,6 +105,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="70"
                     android:textSize="40sp"
+                    android:textColor="@color/hrRed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_max_label"
                     app:layout_constraintTop_toBottomOf="@+id/tv_max_label" />
@@ -101,6 +117,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="50"
                     android:textSize="40sp"
+                    android:textColor="@color/hrRed"
                     app:layout_constraintStart_toStartOf="@+id/tv_min_label"
                     app:layout_constraintTop_toBottomOf="@+id/tv_min_label" />
 
@@ -111,6 +128,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="BPM"
+                    android:textColor="@color/hrRed"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_stat_avg_value"
                     app:layout_constraintStart_toEndOf="@+id/tv_stat_avg_value" />
 
@@ -121,6 +139,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="BPM"
+                    android:textColor="@color/hrRed"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_stat_min_value"
                     app:layout_constraintStart_toEndOf="@+id/tv_stat_min_value" />
 
@@ -131,6 +150,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="BPM"
+                    android:textColor="@color/hrRed"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_stat_max_value"
                     app:layout_constraintStart_toEndOf="@+id/tv_stat_max_value" />
 
@@ -138,10 +158,12 @@
 
             <TextView
                 android:id="@+id/tv_hr_history_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_radius_white_bg_top"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
                 android:text="LỊCH SỬ ĐO"
                 android:textSize="16sp" />
 
@@ -149,8 +171,9 @@
                 android:id="@+id/rv_hr_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_marginHorizontal="16dp"/>
+                android:paddingHorizontal="24dp"
+                android:background="@drawable/border_radius_white_bg_bottom"
+                android:layout_marginBottom="8dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

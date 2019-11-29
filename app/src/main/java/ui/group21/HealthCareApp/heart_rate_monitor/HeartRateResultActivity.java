@@ -22,6 +22,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ui.group21.HealthCareApp.R;
 
 /**
@@ -44,6 +46,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         setContentView(R.layout.activity_heart_rate_result);
         setTitle(getString(R.string.result));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
 
         // get intent extra
         bpmValue = getIntent().getIntExtra(EXTRA_HEART_RATE_VALUE, -1);
@@ -132,7 +135,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         txtMaxValue.setText("" + maxValue);
         txtExpectedMinValue.setText("" + expectMinValue);
         txtExpectedMaxValue.setText("" + expectMaxValue);
-        if (Math.abs(bpmValue - expectMinValue) > 2 && Math.abs(bpmValue - expectMaxValue) > 2 && Math.abs(bpmValue - minValue) > 2 && Math.abs(bpmValue - maxValue) > 2) {
+        if (Math.abs(bpmValue - expectMinValue) > 3 && Math.abs(bpmValue - expectMaxValue) > 3 && Math.abs(bpmValue - minValue) > 3 && Math.abs(bpmValue - maxValue) > 3) {
             txtInProgressHrValue.setText("" + bpmValue);
         } else {
             txtInProgressHrValue.setText("");
@@ -154,13 +157,14 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
      * Recycler View - View Holder
      */
     public class UserHRStatusViewHolder extends RecyclerView.ViewHolder {
-        View itemView;
+        View itemView, circleHRStatus;
         TextView text;
         ImageView image;
 
         public UserHRStatusViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
+            this.circleHRStatus = itemView.findViewById(R.id.circle_item_hr_status);
             this.text = itemView.findViewById(R.id.tv_user_hr_name);
             this.image = itemView.findViewById(R.id.img_user_hr_status);
         }
@@ -173,6 +177,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
 
         // interface for sending user status
         OnUserStatusChanged onUserStatusChangedCallback;
+        int selected = -1;
 
         @NonNull
         @Override
@@ -182,7 +187,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         }
 
         @Override
-        public void onBindViewHolder(@NonNull UserHRStatusViewHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull final UserHRStatusViewHolder holder, final int position) {
             String text = userHRStatusText[position];
             int imgId = userHRStatusImgId[position];
             holder.text.setText(text);
@@ -191,8 +196,26 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
                 @Override
                 public void onClick(View v) {
                     onUserStatusChangedCallback.onChanged(position);
+                    notifyItemChanged(position, Payload.CHECKED_BACKGROUND_COLOR);
+                    notifyItemChanged(selected, Payload.UNCHECKED_BACKGROUND_COLOR);
+                    selected = position;
                 }
             });
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull UserHRStatusViewHolder holder, int position, @NonNull List<Object> payloads) {
+            if (!payloads.isEmpty()){
+                for (Object payload : payloads){
+                    if (Payload.CHECKED_BACKGROUND_COLOR == (int)payload){
+                        holder.circleHRStatus.setActivated(true);
+                    } else if (Payload.UNCHECKED_BACKGROUND_COLOR == (int)payload){
+                        holder.circleHRStatus.setActivated(false);
+                    }
+                }
+            } else {
+                super.onBindViewHolder(holder, position, payloads);
+            }
         }
 
         @Override
@@ -203,5 +226,10 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         public void setOnUserStatusChangedCallback(OnUserStatusChanged onUserStatusChangedCallback) {
             this.onUserStatusChangedCallback = onUserStatusChangedCallback;
         }
+    }
+
+    public static class Payload {
+        public static int CHECKED_BACKGROUND_COLOR = 1;
+        public static int UNCHECKED_BACKGROUND_COLOR = 0;
     }
 }

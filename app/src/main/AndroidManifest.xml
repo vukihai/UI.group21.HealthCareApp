@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="ui.group21.HealthCareApp">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -20,6 +19,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity" android:theme="@style/Theme.HeartRate" />
+        <activity android:name=".UserProfileActivity" />
 
         <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity" />
         <activity android:name=".UserProfileActivity">
@@ -59,13 +60,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".heart_rate_monitor.HeartRateMonitorActivity">
+		</activity>
+        <activity android:name=".heart_rate_monitor.HeartRateMonitorActivity" android:theme="@style/Theme.HeartRate">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".heart_rate_monitor.HeartRateResultActivity" />
+        <activity android:name=".heart_rate_monitor.HeartRateResultActivity" android:theme="@style/Theme.HeartRate"/>
         <activity android:name=".calos_history.CaloHistoryActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
