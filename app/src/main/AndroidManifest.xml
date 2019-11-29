@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ui.group21.HealthCareApp">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -20,9 +21,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity" android:theme="@style/Theme.HeartRate" />
-        <activity android:name=".UserProfileActivity" />
-
-        <activity android:name=".heart_rate_monitor.HeartRateMeasuringActivity" />
         <activity android:name=".UserProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
