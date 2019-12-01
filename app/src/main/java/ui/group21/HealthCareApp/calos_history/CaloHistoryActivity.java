@@ -48,6 +48,7 @@ public class CaloHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        target=5000;
         Log.d("calo","here");
         setContentView(R.layout.activity_calo_history);
         setTitle("Năng lượng tiêu thụ");
@@ -116,13 +117,14 @@ public class CaloHistoryActivity extends AppCompatActivity {
         Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
         Calendar cal = Calendar.getInstance();
         cal.setTime(today); // don't forget this if date is arbitrary e.g. 01-01-2014
-        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH); // 17
+        int dayOfMonth = 26; // 17
+        final int currMonth=cal.get(Calendar.MONTH);
         Log.e("Calo_counter", String.valueOf(dayOfMonth));
         int range = 5000;
-        final String[] days = generate_X_label(10);
         ValueFormatter formatter = new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
+                String[] days = generate_X_label(currMonth);
                 return days[(int) value];
             }
 
@@ -146,7 +148,7 @@ public class CaloHistoryActivity extends AppCompatActivity {
         LineData lineData = new LineData(lineDataSet);
         XAxis xAxis = mCaloChart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(formatter);
+//        xAxis.setValueFormatter(formatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
@@ -166,6 +168,7 @@ public class CaloHistoryActivity extends AppCompatActivity {
     }
 
     private String[] generate_X_label( int month){
+        Log.d("calendar","aaaaaaaaaaaaaaaa");
         int size;
         if(month==2) size=28;
         else if(month==1 || month==3 || month==5||month==7||month==8||month==10||month==12) size=31;
@@ -174,7 +177,6 @@ public class CaloHistoryActivity extends AppCompatActivity {
         for(int i=1; i<=size;i++){
             value[i]=String.valueOf(i);
         }
-
         return value;
     }
 }
