@@ -21,7 +21,10 @@
         &lt;br /&gt;
         &lt;small&gt;100 bước nữa để đạt mục tiêu &lt;/ b&gt;
     </string>
+    <string name="heart_rate_measuring">Nhịp tim</string>
     <string name="trending">Xu hướng</string>
+    <string name="heart_rate_monitor">Màn hình đo hịp tim</string>
+    <string name="result">Kết </string>
     <string name="edit_target_in_step_counter_message">Chỉnh sửa mục tiêu</string>
     <string name="ok_btn">Lưu</string>
     <string name="cancel_btn">Huỷ</string>
@@ -32,16 +35,4 @@
     <string name="stop_recording">Dừng</string>
     <string name="sleeping_history">Lịch sử</string>
     <string name="start_recording">Bắt đầu</string>
-
-    <string name="heart_rate_description">Nhấn bắt đầu để đo nhịp tim</string>
-    <string name="btn_start">Bắt đầu</string>
-    <string name="heart_rate_monitor">Đo nhịp tim</string>
-    <string name="heart_rate_measuring">Đang đo nhịp tim</string>
-    <string name="btn_stop">Dừng</string>
-    <string name="btn_pause">Tạm dừng</string>
-    <string name="result">Kết quả</string>
-    <string name="heart_rate_monitor_guide">Đặt ngón tay che kín camera sau</string>
-    <string name="btn_save">Lưu lại</string>
-    <string name="google_maps_key">AIzaSyC1F4GkT6vBKNnhCfW3NI6oGP_eHCOvVfA</string>
-    <string name="btn_measure_hr">Đo nhịp tim</string>
 </resources>

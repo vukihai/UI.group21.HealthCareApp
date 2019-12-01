@@ -1,181 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".heart_rate_monitor.HeartRateTrendFragment">
 
+    <!-- TODO: Update blank fragment layout -->
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_select_a_day_to_view_results"
+            <LinearLayout
+                android:id="@+id/container_today_hr_trending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:paddingVertical="16dp"
-                android:background="@drawable/border_radius_white_bg_top"
-                android:text="Select a day to view result" />
+                android:layout_marginTop="16dp"
+                android:background="@drawable/frame_rounded_corner"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <com.github.mikephil.charting.charts.BarChart
+                <TextView
+                    android:id="@+id/txt_today_trend"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Thống kê hôm nay" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:id="@+id/container_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_min_value"
+                            style="@style/TextAppearance.AppCompat.Display2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="50" />
+
+                        <TextView
+                            android:id="@+id/txt_min"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MIN" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/container_avg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_avg_value"
+                            style="@style/TextAppearance.AppCompat.Display2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="60" />
+
+                        <TextView
+                            android:id="@+id/txt_avg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AVG" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/container_max"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_max_value"
+                            style="@style/TextAppearance.AppCompat.Display2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="70" />
+
+                        <TextView
+                            android:id="@+id/txt_max"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MAX" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart_weekly_hr"
                 android:layout_width="match_parent"
-                android:background="@drawable/border_radius_white_bg_bottom"
-                android:paddingBottom="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_height="200dp" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/container_hr_avg_min_max"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_radius_white_bg"
-                android:paddingVertical="16dp"
-                android:paddingHorizontal="8dp"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:id="@+id/tv_avg_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:text="AVERAGE"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_stat_avg_value"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_min_label"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_min_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="MIN"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_stat_min_value"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_max_label"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toEndOf="@+id/tv_avg_label"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_max_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:text="MAX"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_stat_max_value"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toEndOf="@+id/tv_min_label"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_stat_avg_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="60"
-                    android:textSize="40sp"
-                    android:textColor="@color/hrRed"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_avg_label" />
-
-                <TextView
-                    android:id="@+id/tv_stat_max_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="70"
-                    android:textSize="40sp"
-                    android:textColor="@color/hrRed"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_max_label"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_max_label" />
-
-                <TextView
-                    android:id="@+id/tv_stat_min_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="50"
-                    android:textSize="40sp"
-                    android:textColor="@color/hrRed"
-                    app:layout_constraintStart_toStartOf="@+id/tv_min_label"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_min_label" />
-
-                <TextView
-                    android:id="@+id/tv_avg_bpm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="BPM"
-                    android:textColor="@color/hrRed"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_stat_avg_value"
-                    app:layout_constraintStart_toEndOf="@+id/tv_stat_avg_value" />
-
-                <TextView
-                    android:id="@+id/tv_min_bpm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="BPM"
-                    android:textColor="@color/hrRed"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_stat_min_value"
-                    app:layout_constraintStart_toEndOf="@+id/tv_stat_min_value" />
-
-                <TextView
-                    android:id="@+id/tv_max_bpm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="BPM"
-                    android:textColor="@color/hrRed"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_stat_max_value"
-                    app:layout_constraintStart_toEndOf="@+id/tv_stat_max_value" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tv_hr_history_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/border_radius_white_bg_top"
-                android:paddingVertical="16dp"
-                android:paddingHorizontal="24dp"
-                android:text="LỊCH SỬ ĐO"
-                android:textSize="16sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_hr_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="24dp"
-                android:background="@drawable/border_radius_white_bg_bottom"
-                android:layout_marginBottom="8dp" />
-
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,8 +21,8 @@ public class HeartRateHomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_heart_rate_home2, container, false);
-        btnStart = v.findViewById(R.id.btn_measure_hr);
+        View v = inflater.inflate(R.layout.fragment_heart_rate_home, container, false);
+        btnStart = v.findViewById(R.id.btn_start);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
