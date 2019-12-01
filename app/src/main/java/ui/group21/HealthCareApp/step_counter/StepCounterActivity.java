@@ -54,7 +54,7 @@ public class StepCounterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Đếm bước");
+//        setTitle("Đếm bước");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         target = 2000;
         setContentView(R.layout.activity_step_counter);
@@ -129,13 +129,13 @@ public class StepCounterActivity extends AppCompatActivity {
         Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
         Calendar cal = Calendar.getInstance();
         cal.setTime(today); // don't forget this if date is arbitrary e.g. 01-01-2014
-        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH); // 17
+        int dayOfMonth =26; // 17
         Log.e("step_counter", String.valueOf(dayOfMonth));
         int range = 5000;
-        final String[] days = generate_X_label(10);
         ValueFormatter formatter = new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
+                String[] days = generate_X_label(10);
                 return days[(int) value];
             }
 
@@ -159,7 +159,7 @@ public class StepCounterActivity extends AppCompatActivity {
         LineData lineData = new LineData(lineDataSet);
         XAxis xAxis = mStepChart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(formatter);
+//        xAxis.setValueFormatter(formatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
