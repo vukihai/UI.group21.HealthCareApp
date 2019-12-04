@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +18,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -35,7 +32,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.util.Collections;
 import java.util.List;
 
 import ui.group21.HealthCareApp.R;
@@ -61,7 +57,8 @@ public class RouteTrackerActivity extends FragmentActivity implements
     private int step = 0;
     private double goal = 10000;
     Fragment startRouteTrackerFragment, trackingFragment, trackingResultsFragment;
-
+    private long startTime = 0;
+    private TextView timeTextView, distanceTextView;
     /**
      * Hàm khởi tạo. init các giá trị.
      *
@@ -78,6 +75,8 @@ public class RouteTrackerActivity extends FragmentActivity implements
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         gpsStatusTextView = findViewById(R.id.txt_gps_status);
+        timeTextView = findViewById(R.id.text_time);
+        distanceTextView = findViewById(R.id.text_speed);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (startRouteTrackerFragment == null) {
@@ -223,8 +222,10 @@ public class RouteTrackerActivity extends FragmentActivity implements
             distance += tmp.distanceTo(location);
 //            mTextView.setText(String.valueOf(Math.round(distance*10)/10) + " m");
         }
-
         updateTrack();
+        if(trackingFragment != null) {
+            ((TrackingFragment) trackingFragment).updateStatus(distance);
+        }
     }
 
     /**
@@ -260,6 +261,7 @@ public class RouteTrackerActivity extends FragmentActivity implements
         List<LatLng> points = gpsTrack.getPoints();
         points.add(lastKnownLatLng);
         gpsTrack.setPoints(points);
+
     }
 
     /**
@@ -275,6 +277,7 @@ public class RouteTrackerActivity extends FragmentActivity implements
         List<LatLng> points = gpsTrack.getPoints();
         points.clear();
         gpsTrack.setPoints(points);
+        startTime = System.currentTimeMillis();
 //        mTextView.setText("let's go!");
     }
 
@@ -352,6 +355,7 @@ public class RouteTrackerActivity extends FragmentActivity implements
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (trackingFragment == null) {
             trackingFragment = new TrackingFragment();
+            ((TrackingFragment)trackingFragment).setStartTime(System.currentTimeMillis());
         }
         transaction.replace(R.id.fragment_bottom, trackingFragment);
         transaction.addToBackStack(null);
@@ -372,9 +376,10 @@ public class RouteTrackerActivity extends FragmentActivity implements
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
+    public void backButtonOnclick(View v){
+        finish();
+    }
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 }

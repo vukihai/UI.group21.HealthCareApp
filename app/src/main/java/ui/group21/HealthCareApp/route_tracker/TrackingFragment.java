@@ -8,10 +8,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Calendar;
 
 import ui.group21.HealthCareApp.R;
 
@@ -35,7 +39,14 @@ public class TrackingFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Button stopButton;
+    TextView timeTextView;
+    TextView speedTextView;
 
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    private Long startTime = Long.valueOf(0);
     public TrackingFragment() {
         // Required empty public constructor
     }
@@ -66,7 +77,17 @@ public class TrackingFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    CountDownTimer newtimer = new CountDownTimer(1000000000, 1000) {
 
+        public void onTick(long millisUntilFinished) {
+            Long runningTime = (System.currentTimeMillis() - startTime)/1000;
+            if(timeTextView!= null && startTime != 0)
+                timeTextView.setText( runningTime <= 60 ? "" + runningTime + " giây" : "" + runningTime / 60 + " phút");
+        }
+        public void onFinish() {
+
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,9 +116,13 @@ public class TrackingFragment extends Fragment {
                         .show();
             }
         });
+        timeTextView = v.findViewById(R.id.text_time);
+        speedTextView = v.findViewById(R.id.text_speed);
         return v;
     }
-
+    public void updateStatus(Double distance){
+        speedTextView.setText(""+ Double.valueOf(Math.round(distance*10/((System.currentTimeMillis()-startTime)/60*60)))/10 + "km/h");
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed() {
         if (mListener != null) {
@@ -114,12 +139,14 @@ public class TrackingFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        newtimer.start();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        newtimer.cancel();
     }
 
     /**
