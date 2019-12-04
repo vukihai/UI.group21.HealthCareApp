@@ -10,24 +10,31 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="khoảng cách còn lại" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="6km" />
+        android:gravity="center"
+        android:text="6km"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:outlineSpotShadowColor="@color/colorMainStatus"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="16dp"
         android:weightSum="2">
 
         <LinearLayout
@@ -40,31 +47,36 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="Thời lượng" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/text_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="30p" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="Tốc độ" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/text_speed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5km/h" />
+                android:gravity="center_horizontal"
+                android:text="~ km/h" />
         </LinearLayout>
     </LinearLayout>
 
@@ -72,6 +84,8 @@
         android:id="@+id/btn_stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kết thúc" />
+        android:text="Kết thúc"
+        android:background="@drawable/border_radius"
+        android:layout_margin="16dp"/>
 
 </LinearLayout>
