@@ -37,7 +37,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
 
     private void initData() {
         mListAlarm = new ArrayList<>();
-        mListAlarm.add(new Alarm("4:00","true","true"));
+        mListAlarm.add(new Alarm("4:00",true,true));
     }
 
     @SuppressLint("WrongConstant")
