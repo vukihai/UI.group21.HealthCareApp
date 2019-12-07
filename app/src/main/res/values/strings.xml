@@ -43,4 +43,6 @@
     <string name="btn_save">Save</string>
     <string name="google_maps_key">AIzaSyC1F4GkT6vBKNnhCfW3NI6oGP_eHCOvVfA</string>
     <string name="btn_measure_hr">Measure</string>
+    <string name="activity_smartAlarm_help" translatable="false">Hướng dẫn</string>
+    <string name="activity_smartAlarm_time" translatable="false">4:00</string>
 </resources>
