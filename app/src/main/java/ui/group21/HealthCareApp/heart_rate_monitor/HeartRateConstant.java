@@ -8,7 +8,7 @@ public interface HeartRateConstant {
 
     // fixed User Heart Rate Status Data
     int[] userHRStatusImgId = {R.drawable.icon_hr_rest, R.drawable.icon_hr_run, R.drawable.icon_hr_tired, R.drawable.icon_hr_excited};
-    String[] userHRStatusText = {"Nghỉ ngơi", "Vận động", "Mệt mỏi", "Phấn khích"};
+    int[] userHRStatusText = {R.string.hr_resting, R.string.hr_after_exercise, R.string.hr_tired, R.string.hr_excited};
     int[] userHRExpectedMaxValue = {76, 120, 76, 100};
     int[] userHRExpectedMinValue = {61, 80, 61, 70};
     int[] userHRMaxValue = {120, 150, 120, 120};

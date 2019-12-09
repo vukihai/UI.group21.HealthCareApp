@@ -1,5 +1,6 @@
 package ui.group21.HealthCareApp.heart_rate_monitor;
 
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.media.Image;
 import android.os.Bundle;
@@ -31,10 +32,11 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Random;
 
 import ui.group21.HealthCareApp.R;
 
-public class HeartRateTrendFragment extends Fragment implements OnChartValueSelectedListener {
+public class HeartRateTrendFragment extends Fragment implements OnChartValueSelectedListener, HeartRateConstant {
 
     BarChart chart;
     TextView txtAvgValue, txtMaxValue, txtMinValue;
@@ -86,7 +88,7 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
         ValueFormatter xAxisFormatter = new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return new DateFormatSymbols().getShortWeekdays()[(int) value % 7 +1];
+                return new DateFormatSymbols().getShortWeekdays()[(int) value % 7 + 1];
             }
         };
 
@@ -117,9 +119,10 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
     public class HRHistoryViewHolder extends RecyclerView.ViewHolder {
         TextView txtHRTime, txtHrValue, txtHrTitle;
         ImageView imgHRStatus;
+
         public HRHistoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgHRStatus = itemView.findViewById(R.id.img_user_hr_status);
+            imgHRStatus = itemView.findViewById(R.id.img_hr_history_status);
             txtHRTime = itemView.findViewById(R.id.tv_history_hr_timestamp);
             txtHrValue = itemView.findViewById(R.id.tv_history_hr_value);
             txtHrTitle = itemView.findViewById(R.id.tv_history_hr_title);
@@ -140,15 +143,19 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
 
         @Override
         public void onBindViewHolder(@NonNull HRHistoryViewHolder holder, int position) {
-            if (position == 0){
-                holder.txtHrValue.setText(""+98+"bpm");
-                if (true){ // no notes
-                    holder.txtHrTitle.setText("Resting"); // HR status
-                } else {
-                    holder.txtHrTitle.setText("After go for a run"); // Notes
-                }
-                holder.txtHRTime.setText("13:00");
+            Random rand = new Random();
+            int bpm = (70 + rand.nextInt(50));
+            int statusCode = rand.nextInt(userHRStatusText.length);
+            String hrStatus = getString(userHRStatusText[statusCode]);
+            hrStatus = hrStatus.substring(0,1).toUpperCase() + hrStatus.substring(1);
+            holder.txtHrValue.setText("" + bpm + " bpm");
+            holder.imgHRStatus.setImageDrawable(getResources().getDrawable(userHRStatusImgId[statusCode]));
+            if (true) { // no notes
+                holder.txtHrTitle.setText(hrStatus); // HR status
+            } else {
+                holder.txtHrTitle.setText("Sample notes here!"); // Notes
             }
+            holder.txtHRTime.setText("" + (position + 12) + ":" + (10+rand.nextInt(49)));
         }
 
         @Override
@@ -158,13 +165,13 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
     }
 
 
-    public void updateAvgMaxMin(int pos){
-        if (pos < 0 || pos >= maxValues.length){
+    public void updateAvgMaxMin(int pos) {
+        if (pos < 0 || pos >= maxValues.length) {
             return;
         }
-        txtMaxValue.setText(""+maxValues[pos]);
-        txtMinValue.setText(""+minValues[pos]);
-        txtAvgValue.setText(""+avgValues[pos]);
+        txtMaxValue.setText("" + maxValues[pos]);
+        txtMinValue.setText("" + minValues[pos]);
+        txtAvgValue.setText("" + avgValues[pos]);
     }
 
     private void setData(int count, float range) {
@@ -185,11 +192,12 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
             chart.notifyDataSetChanged();
 
         } else {
-            set1 = new BarDataSet(values, "The year 2017");
+            set1 = new BarDataSet(values, "Last week heart rate chart");
 
             set1.setDrawIcons(false);
 
-            set1.setColors(ColorTemplate.MATERIAL_COLORS);
+//            set1.setColors(ColorTemplate.MATERIAL_COLORS);
+            set1.setColor(getResources().getColor(R.color.hrRedChart));
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
@@ -206,9 +214,10 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
     public void onValueSelected(Entry e, Highlight h) {
         if (e == null)
             return;
-        updateAvgMaxMin((int)e.getX());
+        updateAvgMaxMin((int) e.getX());
     }
 
     @Override
-    public void onNothingSelected() {    }
+    public void onNothingSelected() {
+    }
 }

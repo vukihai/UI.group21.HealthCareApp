@@ -4,14 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.Guideline;
-import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,10 +29,11 @@ import ui.group21.HealthCareApp.R;
  */
 public class HeartRateResultActivity extends AppCompatActivity implements HeartRateConstant {
     RecyclerView rvUserHRStatus;
-    TextView txtHrValue, txtInProgressHrValue, txtExpectedMinValue, txtExpectedMaxValue, txtMinValue, txtMaxValue;
+    TextView txtHrValue, txtInProgressHrValue, txtExpectedMinValue, txtExpectedMaxValue, txtMinValue, txtMaxValue, txtAverageRange;
     Button btnDiscard, btnSave;
     Guideline glExpMin, glExpMax, glCurrentHR;
     int bpmValue, expectMinValue, expectMaxValue, minValue, maxValue;
+    String statusName;
 
     public interface OnUserStatusChanged {
         void onChanged(int statusCode);
@@ -64,6 +63,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         txtExpectedMaxValue = (TextView) findViewById(R.id.tv_expect_hr_max);
         txtMinValue = (TextView) findViewById(R.id.tv_hr_min);
         txtMaxValue = (TextView) findViewById(R.id.tv_hr_max);
+        txtAverageRange = (TextView) findViewById(R.id.tv_hr_range_description);
 
         glExpMin = (Guideline) findViewById(R.id.guideline_expect_min_hr);
         glExpMax = (Guideline) findViewById(R.id.guideline_expect_max_hr);
@@ -78,12 +78,13 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
                 maxValue = userHRMaxValue[statusCode];
                 expectMinValue = userHRExpectedMinValue[statusCode];
                 expectMaxValue = userHRExpectedMaxValue[statusCode];
-                setHeartRateValue();
+                statusName = getString(userHRStatusText[statusCode]);
+                setHeartRateViewItem();
             }
         });
         rvUserHRStatus.setAdapter(mAdapter);
         rvUserHRStatus.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        setHeartRateValue();
+        setHeartRateViewItem();
     }
 
     @Override
@@ -115,7 +116,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         startActivity(intent);
     }
 
-    public void changeGuidelineWithAnim(final Guideline guideline, float value){
+    public static void changeGuidelineWithAnim(final Guideline guideline, float value){
         final ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams)guideline.getLayoutParams();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(lp.guidePercent, value);
         valueAnimator.setDuration(500);
@@ -129,12 +130,13 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         valueAnimator.start();
     }
 
-    public void setHeartRateValue() {
+    public void setHeartRateViewItem() {
         txtHrValue.setText("" + bpmValue);
         txtMinValue.setText("" + minValue);
         txtMaxValue.setText("" + maxValue);
         txtExpectedMinValue.setText("" + expectMinValue);
         txtExpectedMaxValue.setText("" + expectMaxValue);
+        txtAverageRange.setText(String.format(getString(R.string.hr_avg_range), statusName));
         if (Math.abs(bpmValue - expectMinValue) > 3 && Math.abs(bpmValue - expectMaxValue) > 3 && Math.abs(bpmValue - minValue) > 3 && Math.abs(bpmValue - maxValue) > 3) {
             txtInProgressHrValue.setText("" + bpmValue);
         } else {
@@ -177,7 +179,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
 
         // interface for sending user status
         OnUserStatusChanged onUserStatusChangedCallback;
-        int selected = -1;
+        int selected = 0;
 
         @NonNull
         @Override
@@ -188,7 +190,8 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
 
         @Override
         public void onBindViewHolder(@NonNull final UserHRStatusViewHolder holder, final int position) {
-            String text = userHRStatusText[position];
+            String text = getResources().getString(userHRStatusText[position]);
+            text = text.substring(0, 1).toUpperCase() + text.substring(1);
             int imgId = userHRStatusImgId[position];
             holder.text.setText(text);
             holder.image.setImageDrawable(getResources().getDrawable(userHRStatusImgId[position]));
@@ -201,6 +204,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
                     selected = position;
                 }
             });
+            onUserStatusChangedCallback.onChanged(0);
         }
 
         @Override
