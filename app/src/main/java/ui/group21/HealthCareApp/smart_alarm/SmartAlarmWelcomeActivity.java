@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +48,10 @@ public class SmartAlarmWelcomeActivity extends AppCompatActivity {
 
 
         layouts = new int[]{
-                R.layout.fragment_smart_alarm_welcome_1,
-                R.layout.fragment_smart_alarm_welcome_2,
-                R.layout.fragment_smart_alarm_welcome_3,
-                R.layout.fragment_smart_alarm_welcome_4};
+                R.layout.item_smart_alarm_welcome_1,
+                R.layout.item_smart_alarm_welcome_2,
+                R.layout.item_smart_alarm_welcome_3,
+                R.layout.item_smart_alarm_welcome_4};
 
         // adding bottom dots
         addBottomDots(0);
@@ -89,7 +88,7 @@ public class SmartAlarmWelcomeActivity extends AppCompatActivity {
 
     private void changeActionBarColor(int current) {
         // thay mau
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
+        int[] colorsActive = getResources().getIntArray(R.array.array_welcome_alarm_actionbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorsActive[current]));
 
         // xoa border
@@ -105,8 +104,8 @@ public class SmartAlarmWelcomeActivity extends AppCompatActivity {
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];
 
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+        int[] colorsActive = getResources().getIntArray(R.array.array_welcome_alarm_dot_active);
+        int[] colorsInactive = getResources().getIntArray(R.array.array_welcome_alarm_dot_inactive);
 
         dotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
