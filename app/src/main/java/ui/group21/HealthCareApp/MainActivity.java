@@ -22,6 +22,7 @@ import ui.group21.HealthCareApp.heart_rate_monitor.HeartRateMonitorActivity;
 import ui.group21.HealthCareApp.route_tracker.RouteTrackerActivity;
 import ui.group21.HealthCareApp.sleep_recorder.SleepRecorderActivity;
 import ui.group21.HealthCareApp.smart_alarm.SmartAlarmActivity;
+import ui.group21.HealthCareApp.smart_alarm.SmartAlarmWelcomeActivity;
 import ui.group21.HealthCareApp.step_counter.StepCounterActivity;
 
 /**
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(sleepIntent);
                 break;
             case R.id.btn_smart_alarm:
-                smartAlarmIntent = new Intent(thisContext, SmartAlarmActivity.class);
+                smartAlarmIntent = new Intent(thisContext, SmartAlarmWelcomeActivity.class);
                 startActivity(smartAlarmIntent);
                 break;
             case R.id.btn_profile:

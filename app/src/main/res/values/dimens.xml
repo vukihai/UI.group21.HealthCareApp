@@ -17,5 +17,10 @@
     <dimen name="margin_medium">8dp</dimen>
     <dimen name="margin_large">15dp</dimen>
     <dimen name="margin_very_large">25dp</dimen>
+    <dimen name="dots_margin_bottom">20dp</dimen>
+    <dimen name="slide_title">30dp</dimen>
+    <dimen name="desc_padding">40dp</dimen>
+    <dimen name="slide_desc">16sp</dimen>
+    <dimen name="dots_height">30dp</dimen>
 
 </resources>
