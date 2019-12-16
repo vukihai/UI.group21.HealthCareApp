@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,53 +7,59 @@
     android:orientation="vertical"
     tools:context=".sleep_recorder.SleepRecorderActivity">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:layout_weight="1"
-        android:id="@+id/chartSleepingTimeline"
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/guideContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/guideButton"
+            android:textColor="#6B6B6B"
+            android:textAllCaps="false"
+            android:textSize="12dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="3dip"
+            android:drawableLeft="@drawable/ic_local_library_grey_24dp"
+            android:background="#FFFDE7"
+            android:text="Hướng dẫn"></Button>
+    </LinearLayout>
 
-    </com.github.mikephil.charting.charts.LineChart>
+    <Button
+        android:layout_marginVertical="10dp"
+        app:layout_constraintTop_toBottomOf="@id/guideContainer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/sleepRecordingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button_start_pause_sleep_recording"
+        android:textSize="20dp"
+        android:textColor="#42A5F5"
+        android:text="Bắt đầu" />
 
-    <FrameLayout
-        android:id="@+id/frameButtonContainer"
+    <LinearLayout
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/sleepRecordingButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/linearStopContainer"
+        android:layout_height="0dp"
+        android:orientation="vertical">
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/sleepStaticChart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/buttonStopRecording"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/stop_recording" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearStartAndHistoryContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonStartRecording"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/start_recording" />
-
-            <Button
-                android:id="@+id/buttonHistory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/sleeping_history" />
-        </LinearLayout>
-    </FrameLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

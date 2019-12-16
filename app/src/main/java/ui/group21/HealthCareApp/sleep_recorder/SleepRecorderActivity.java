@@ -2,33 +2,29 @@ package ui.group21.HealthCareApp.sleep_recorder;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.content.BroadcastReceiver;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.Shader;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.Utils;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import ui.group21.HealthCareApp.R;
@@ -37,45 +33,32 @@ import ui.group21.HealthCareApp.R;
  * theo dõi giấc ngủ. #1.11
  */
 public class SleepRecorderActivity extends AppCompatActivity {
+    private Button mSleepRecordingButton;
+    private Button mGuideButton;
+    private BarChart mSleepStaticChart;
 
-    private Button mStartRecordingBtn;
-    private Button mStopRecordingBtn;
-    private Button mHistoryBtn;
-    private LineChart mSleepingTimelineChart;
+    private boolean isRecording = false;
 
-    private final BroadcastReceiver mLastHalfBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            float[] data = intent.getFloatArrayExtra("DATA");
-            updateSleepingTimelineChart(generateLineData(data));
-        }
-    };
+    private final int DAYS = 16;
 
-    private final BroadcastReceiver mQuarterAvgsBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-        }
-    };
-
-    private final View.OnClickListener mStartRecordingBtnOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mSleepRecordingButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            startRecording();
+            isRecording = !isRecording;
+            if(isRecording) {
+                mSleepRecordingButton.setText("Tạm dừng");
+                startRecording();
+            } else {
+                mSleepRecordingButton.setText("Bắt đầu");
+                stopRecording();
+            }
         }
     };
 
-    private final View.OnClickListener mStopRecordingBtnOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mGuideButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            stopRecording();
-        }
-    };
-
-    private final View.OnClickListener mHistoryBtnOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
+            showGuide();
         }
     };
 
@@ -87,6 +70,7 @@ public class SleepRecorderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sleep_recorder);
         initViews();
         initActions();
+        drawChart();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -99,81 +83,93 @@ public class SleepRecorderActivity extends AppCompatActivity {
         }
     }
 
-
     private void initViews() {
-        mStartRecordingBtn         = findViewById(R.id.buttonStartRecording);
-        mStopRecordingBtn          = findViewById(R.id.buttonStopRecording);
-        mHistoryBtn                = findViewById(R.id.buttonHistory);
-
-        mSleepingTimelineChart     = findViewById(R.id.chartSleepingTimeline);
-
-        mSleepingTimelineChart.setViewPortOffsets(0f, 0f, 0f, 0f);
-
-        mSleepingTimelineChart.getAxisLeft().setDrawAxisLine(false);
-        mSleepingTimelineChart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-
-        mSleepingTimelineChart.getAxisRight().setDrawGridLines(false);
-        mSleepingTimelineChart.getAxisRight().setDrawAxisLine(false);
-        mSleepingTimelineChart.getAxisRight().setDrawLabels(false);
-
-        mSleepingTimelineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        mSleepingTimelineChart.getXAxis().setDrawGridLines(false);
-        mSleepingTimelineChart.getXAxis().setDrawAxisLine(false);
-
-        mSleepingTimelineChart.getDescription().setEnabled(false);
-        mSleepingTimelineChart.getLegend().setEnabled(false);
-
-        findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.VISIBLE);
-        findViewById(R.id.linearStopContainer).setVisibility((View.INVISIBLE));
+        mSleepRecordingButton = findViewById(R.id.sleepRecordingButton);
+        mGuideButton = findViewById(R.id.guideButton);
+        mSleepStaticChart = findViewById(R.id.sleepStaticChart);
     }
 
     private void initActions() {
-        IntentFilter lastHalfFilter = new IntentFilter();
-        lastHalfFilter.addAction(SleepRecorderService.ACTION_GET_REALTIME_DATA);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mLastHalfBroadcastReceiver, lastHalfFilter);
+        mGuideButton.setOnClickListener(mGuideButtonOnClickListener);
+        mSleepRecordingButton.setOnClickListener(mSleepRecordingButtonOnClickListener);
 
-        IntentFilter quarterAvgsFilter = new IntentFilter();
-        quarterAvgsFilter.addAction(SleepRecorderService.ACTION_GET_AVGS_DATA);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mQuarterAvgsBroadcastReceiver, quarterAvgsFilter);
+        isRecording = isServiceRunning();
+        if(isRecording) {
+            mSleepRecordingButton.setText("Tạm dừng");
+        } else {
+            mSleepRecordingButton.setText("Bắt đầu");
+        }
+    }
 
-        mStartRecordingBtn.setOnClickListener(mStartRecordingBtnOnClickListener);
-        mStopRecordingBtn.setOnClickListener(mStopRecordingBtnOnClickListener);
-        mHistoryBtn.setOnClickListener(mHistoryBtnOnClickListener);
+    private void drawChart() {
+        final ArrayList<String> xLabels = new ArrayList<>();
+        final List<BarEntry> entries = new ArrayList<>();
+
+        Calendar cal = Calendar.getInstance();
+        int today = cal.get(Calendar.DAY_OF_MONTH);
+
+        for (int i = 1; i < today; ++i) {
+            float nremValue = (float) (Math.random() * ((50 - 10) + 1)) + 10;
+            float remValue = (float) (Math.random() * ((30 - 20) + 1)) + 20;
+            float wakeUpValue = (float) (Math.random() * ((20 - 10) + 1)) + 10;
+            BarEntry stackedEntry = new BarEntry(i, new float[] {nremValue, remValue, wakeUpValue});
+            xLabels.add((new Integer(i)).toString() + "/" + (new Integer(cal.get(Calendar.MONTH))).toString());
+            entries.add(stackedEntry);
+        }
+
+        BarDataSet set = new BarDataSet(entries, "");
+        set.setStackLabels(new String[]{"Ngủ sâu", "Ngủ nông", "Tỉnh táo"});
+        set.setDrawIcons(false);
+        int[] colors = new int[3];
+        System.arraycopy(ColorTemplate.MATERIAL_COLORS, 0, colors, 0, 3);
+        set.setColors(colors);
+
+        BarData data = new BarData(set);
+
+        mSleepStaticChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        mSleepStaticChart.getXAxis().setDrawGridLines(false);
+        mSleepStaticChart.getXAxis().setDrawAxisLine(false);
+        mSleepStaticChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xLabels));
+
+        mSleepStaticChart.getAxisLeft().setDrawAxisLine(false);
+        mSleepStaticChart.getAxisLeft().setDrawGridLines(false);
+
+        mSleepStaticChart.getAxisRight().setDrawAxisLine(false);
+        mSleepStaticChart.getAxisRight().setDrawGridLines(false);
+        mSleepStaticChart.getAxisRight().setDrawLabels(false);
+
+        mSleepStaticChart.getDescription().setEnabled(false);
+
+
+        mSleepStaticChart.setFitBars(true);
+
+        mSleepStaticChart.setData(data);
+        mSleepStaticChart.invalidate();
     }
 
     private void startRecording() {
-        findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.INVISIBLE);
-        findViewById(R.id.linearStopContainer).setVisibility((View.VISIBLE));
         startService(new Intent(this, SleepRecorderService.class));
     }
 
     private void stopRecording() {
-        findViewById(R.id.linearStartAndHistoryContainer).setVisibility(View.VISIBLE);
-        findViewById(R.id.linearStopContainer).setVisibility((View.INVISIBLE));
         stopService(new Intent(this, SleepRecorderService.class));
     }
 
-    private void updateSleepingTimelineChart(LineData lineData) {
-        mSleepingTimelineChart.setData(lineData);
-        mSleepingTimelineChart.invalidate();
+    private void showGuide() {
+        startActivity(new Intent(this, SleepRecorderGuide.class));
     }
 
-    private LineData generateLineData(float[] data) {
-        List<Entry> entries = new ArrayList<>();
-        for(int i = 0; i < data.length; ++i) {
-            entries.add(new Entry((float) i, data[i]));
+
+
+    private boolean isServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (SleepRecorderService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
         }
-        LineDataSet dataSet = new LineDataSet(entries, "Timeline");
-        dataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSet.setDrawValues(false);
-        dataSet.setDrawCircles(false);
-        dataSet.setDrawFilled(true);
-        if (Utils.getSDKInt() >= 18) {
-            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.sleeping_depth_gradient);
-            dataSet.setFillDrawable(drawable);
-        } else {
-            dataSet.setFillColor(Color.BLACK);
-        }
-        return new LineData(dataSet);
+        return false;
     }
+
+
 }
