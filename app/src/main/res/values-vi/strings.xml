@@ -44,4 +44,17 @@
     <string name="btn_save">Lưu lại</string>
     <string name="google_maps_key">AIzaSyC1F4GkT6vBKNnhCfW3NI6oGP_eHCOvVfA</string>
     <string name="btn_measure_hr">Đo nhịp tim</string>
+    <string name="hr_notes">Ghi chú</string>
+    <string name="hr_type_some_notes">Nhập vài ghi chú vào đây...</string>
+    <string name="hr_choose_status">Chọn trạng thái của bạn</string>
+    <string name="hr_avg_range">Vùng %s trung bình</string>
+    <string name="hr_after_exercise">sau tập luyện</string>
+    <string name="hr_resting">nghỉ ngơi</string>
+    <string name="hr_tired">mệt mỏi</string>
+    <string name="hr_excited">phấn khích</string>
+    <string name="hr_measure_history">Lịch sử đo</string>
+    <string name="hr_select_a_day">Chọn một ngày để xem kết quả</string>
+    <string name="hr_average">TRUNG BÌNH</string>
+    <string name="hr_max">TỐI ĐA</string>
+    <string name="hr_min">TỐI THIỂU</string>
 </resources>

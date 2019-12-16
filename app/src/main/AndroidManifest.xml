@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".inavtive_time_reminder.InactiveTimeReminderActivity" />
         <activity android:name=".smart_alarm.SmartAlarmActivity" />
+        <activity android:name=".smart_alarm.SettingAlarmActivity" />
+
         <activity
             android:name=".sleep_recorder.SleepAnalysisActivity"
             android:exported="true" />
