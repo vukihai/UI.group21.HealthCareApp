@@ -92,7 +92,7 @@ public class SleepRecorderActivity extends AppCompatActivity {
     private void initActions() {
         mGuideButton.setOnClickListener(mGuideButtonOnClickListener);
         mSleepRecordingButton.setOnClickListener(mSleepRecordingButtonOnClickListener);
-        
+
         isRecording = isServiceRunning();
         if(isRecording) {
             mSleepRecordingButton.setText("Tạm dừng");
