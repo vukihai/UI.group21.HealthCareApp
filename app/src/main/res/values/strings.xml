@@ -59,5 +59,6 @@
     <string name="hr_average">AVERAGE</string>
     <string name="hr_max">MAX</string>
     <string name="hr_min">MIN</string>
+    <string name="btn_got_it">Got it</string>
 
 </resources>

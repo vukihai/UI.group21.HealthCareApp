@@ -57,4 +57,5 @@
     <string name="hr_average">TRUNG BÌNH</string>
     <string name="hr_max">TỐI ĐA</string>
     <string name="hr_min">TỐI THIỂU</string>
+    <string name="btn_got_it">Đã hiểu</string>
 </resources>

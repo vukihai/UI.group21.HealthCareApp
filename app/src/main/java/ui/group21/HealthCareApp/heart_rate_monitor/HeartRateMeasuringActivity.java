@@ -1,17 +1,27 @@
 package ui.group21.HealthCareApp.heart_rate_monitor;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -19,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -46,8 +57,8 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
     ImageView imgHeart;
     ViewGroup.LayoutParams imgHeartLayoutParams;
 
-    private Handler handler;
-    private Runnable finnishJob;
+    private Handler handler = null;
+    private Runnable finnishJob = null;
     private CircularProgressBar progressBar;
     private SurfaceView videoPreview;
     private SurfaceHolder previewHolder;
@@ -88,7 +99,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         txtTempHrBPM = findViewById(R.id.tv_temp_bpm);
         txtHRGuideMessage = findViewById(R.id.tv_heart_rate_description);
 
-        chartHR = (LineChart)findViewById(R.id.chart_heart_rate);
+        chartHR = (LineChart) findViewById(R.id.chart_heart_rate);
 
         imgHeart = (ImageView) findViewById(R.id.img_heart_rate);
         imgHeartLayoutParams = (ViewGroup.LayoutParams) imgHeart.getLayoutParams();
@@ -130,6 +141,8 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         // HR monitor
         txtTempHrBPM.setText("");
         txtTempHrValue.setText("--");
+        TutorialDialog tutorialDialog = new TutorialDialog();
+        tutorialDialog.show(getSupportFragmentManager(), "tutorial_dialog");
         if (true) {
             simulateHeartRateComplete(98);
         } else {
@@ -146,6 +159,42 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "App:DoNotDimScreen");
+    }
+
+    public static class TutorialDialog extends DialogFragment {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View v = inflater.inflate(R.layout.dialog_heart_rate_measuring_tutorial, null);
+            ImageView imgHrTutorial = v.findViewById(R.id.img_hr_tutorial);
+            AnimationDrawable frameAnimation = (AnimationDrawable) imgHrTutorial.getDrawable();
+            frameAnimation.setCallback(imgHrTutorial);
+            frameAnimation.setVisible(true, true);
+            frameAnimation.start();
+            AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setView(v)
+                    // Add action buttons
+                    .setPositiveButton(R.string.btn_got_it, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            getDialog().cancel();
+                        }
+                    }).create();
+            dialog.getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.border_radius_white_bg);
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    positiveButton.setTextColor(getResources().getColor(R.color.hrRed));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f);
+                    positiveButton.setLayoutParams(params);
+                    positiveButton.invalidate();
+                }
+            });
+            return dialog;
+        }
     }
 
     public void simulateHeartRateComplete(final int bpm) {
@@ -167,8 +216,8 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
                         public void run() {
                             int rand = bpm - 5 + new Random().nextInt(10);
                             progressBar.setProgressWithAnimation(progressBar.getProgress() + 1, 100L);
-                            txtTempHrValue.setText(""+rand);
-                            addEntry(rand-30.0f);
+                            txtTempHrValue.setText("" + rand);
+                            addEntry(rand - 30.0f);
                             addEntry(rand);
                         }
                     });
@@ -187,6 +236,10 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         finish();
         started = false;
         measuring = false;
+        if (finnishJob != null && handler != null) {
+            handler.removeCallbacks(finnishJob);
+            finnishJob = null;
+        }
     }
 
     public void finishHeartRateMeasure(int bpm) {
@@ -233,6 +286,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
             // AxisDependency.LEFT);
         }
     }
+
     private LineDataSet createSet() {
         LineDataSet set1 = new LineDataSet(null, "DataSet 1");
 
@@ -366,7 +420,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
                             imgHeart.setLayoutParams(imgHeartLayoutParams);
 
                             if (dpm > 0) {
-                                addEntry(dpm-20.0f);
+                                addEntry(dpm - 20.0f);
                                 addEntry(dpm);
                             }
 
