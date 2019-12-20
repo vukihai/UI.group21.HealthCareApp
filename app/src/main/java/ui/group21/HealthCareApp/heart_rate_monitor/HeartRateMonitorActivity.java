@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import ui.group21.HealthCareApp.R;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
  * đo nhịp tim #1.3
@@ -26,7 +27,8 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private FloatingActionButton fab;
+    private static FloatingActionButton fab;
+    public static boolean showTutorial = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,9 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(0);
+//                viewPager.setCurrentItem(0);
+                Intent intent = new Intent(v.getContext(), HeartRateMeasuringActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -57,9 +61,11 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
             public void onPageSelected(int position) {
                 switch (position) {
                     case 1: // trend tab
-                        fab.show(); break;
+                        fab.show();
+                        break;
                     default:
-                        fab.hide(); break;
+                        fab.hide();
+                        break;
                 }
             }
 
@@ -67,6 +73,15 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
             public void onPageScrollStateChanged(int state) {
             }
         });
+    }
+
+    private void showFabTutorial() {
+        new MaterialTapTargetPrompt.Builder(HeartRateMonitorActivity.this)
+                .setTarget(fab)
+                .setPrimaryText(R.string.hr_alter_measure_btn_tutorial)
+                .setPromptBackground(new MTTPCustom.DimmedCirclePromptBackground())
+                .show();
+        showTutorial = false;
     }
 
     @Override
@@ -101,7 +116,11 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
                 case 0:
                     return new HeartRateHomeFragment();
                 case 1:
-                    return new HeartRateTrendFragment();
+                    HeartRateTrendFragment trendFragment = new HeartRateTrendFragment();
+                    trendFragment.setOnTutorialFinishedListener(() -> {
+                        showFabTutorial();
+                    });
+                    return trendFragment;
                 default:
                     return new HeartRateHomeFragment();
             }
