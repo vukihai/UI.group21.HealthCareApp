@@ -23,7 +23,6 @@
                 android:id="@+id/tv_select_a_day_to_view_results"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_radius_white_bg_top"
                 android:paddingVertical="16dp"
                 android:text="@string/hr_select_a_day"
                 android:textAlignment="center" />
@@ -31,7 +30,6 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart_weekly_hr"
                 android:layout_width="match_parent"
-                android:background="@drawable/border_radius_white_bg_bottom"
                 android:paddingBottom="16dp"
                 android:layout_height="200dp" />
 
@@ -161,7 +159,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/border_radius_white_bg_top"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="16dp"
                 android:text="@string/hr_measure_history"
@@ -172,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="24dp"
-                android:background="@drawable/border_radius_white_bg_bottom"
+                android:paddingBottom="16dp"
                 android:layout_marginBottom="8dp" />
 
         </LinearLayout>

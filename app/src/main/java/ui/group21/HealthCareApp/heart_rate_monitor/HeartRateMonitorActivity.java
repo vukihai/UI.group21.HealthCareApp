@@ -1,5 +1,6 @@
 package ui.group21.HealthCareApp.heart_rate_monitor;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
@@ -9,7 +10,14 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +26,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import ui.group21.HealthCareApp.R;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.PromptOptions;
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.CirclePromptBackground;
 
 /**
  * đo nhịp tim #1.3
@@ -26,7 +37,8 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private FloatingActionButton fab;
+    private static FloatingActionButton fab;
+    public static boolean showTutorial = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +69,11 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
             public void onPageSelected(int position) {
                 switch (position) {
                     case 1: // trend tab
-                        fab.show(); break;
+                        fab.show();
+                        break;
                     default:
-                        fab.hide(); break;
+                        fab.hide();
+                        break;
                 }
             }
 
@@ -67,6 +81,15 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
             public void onPageScrollStateChanged(int state) {
             }
         });
+    }
+
+    private void showFabTutorial() {
+        new MaterialTapTargetPrompt.Builder(HeartRateMonitorActivity.this)
+                .setTarget(fab)
+                .setPrimaryText(R.string.hr_alter_measure_btn_tutorial)
+                .setPromptBackground(new DimmedPromptBackground())
+                .show();
+        showTutorial = false;
     }
 
     @Override
@@ -101,7 +124,11 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
                 case 0:
                     return new HeartRateHomeFragment();
                 case 1:
-                    return new HeartRateTrendFragment();
+                    HeartRateTrendFragment trendFragment = new HeartRateTrendFragment();
+                    trendFragment.setOnTutorialFinishedListener(() -> {
+                        showFabTutorial();
+                    });
+                    return trendFragment;
                 default:
                     return new HeartRateHomeFragment();
             }
@@ -123,6 +150,45 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
         @Override
         public int getCount() {
             return 2;
+        }
+    }
+
+    public static class DimmedPromptBackground extends CirclePromptBackground
+    {
+        @NonNull
+        private RectF dimBounds = new RectF();
+        @NonNull private Paint dimPaint;
+
+        public DimmedPromptBackground()
+        {
+            dimPaint = new Paint();
+            dimPaint.setColor(Color.BLACK);
+        }
+
+        @Override
+        public void prepare(@NonNull final PromptOptions options, final boolean clipToBounds, @NonNull Rect clipBounds)
+        {
+            super.prepare(options, clipToBounds, clipBounds);
+            DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+            // Set the bounds to display as dimmed to the screen bounds
+            dimBounds.set(0, 0, metrics.widthPixels, metrics.heightPixels);
+        }
+
+        @Override
+        public void update(@NonNull final PromptOptions options, float revealModifier, float alphaModifier)
+        {
+            super.update(options, revealModifier, alphaModifier);
+            // Allow for the dimmed background to fade in and out
+            this.dimPaint.setAlpha((int) (200 * alphaModifier));
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas)
+        {
+            // Draw the dimmed background
+            canvas.drawRect(this.dimBounds, this.dimPaint);
+            // Draw the background
+            super.draw(canvas);
         }
     }
 }

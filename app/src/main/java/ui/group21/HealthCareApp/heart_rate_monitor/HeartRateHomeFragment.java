@@ -18,6 +18,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ui.group21.HealthCareApp.R;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.CirclePromptBackground;
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal;
 
 import static ui.group21.HealthCareApp.heart_rate_monitor.HeartRateResultActivity.changeGuidelineWithAnim;
 
@@ -30,8 +34,25 @@ public class HeartRateHomeFragment extends Fragment implements HeartRateConstant
     private int bpmValue, expectMinValue, expectMaxValue, minValue, maxValue;
     private Calendar hrDate;
     private String statusName;
+    private static boolean showTutorial = true;
 
     public HeartRateHomeFragment() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (showTutorial){
+            RectanglePromptFocal rectanglePromptFocal = new RectanglePromptFocal();
+            rectanglePromptFocal.setCornerRadius(30f, 30f);
+            new MaterialTapTargetPrompt.Builder(getActivity())
+                    .setTarget(btnStart)
+                    .setPrimaryText(R.string.hr_alter_measure_btn_tutorial)
+                    .setPromptBackground(new RectanglePromptBackground())
+                    .setPromptFocal(rectanglePromptFocal)
+                    .show();
+            showTutorial = false;
+        }
     }
 
     @Override

@@ -59,5 +59,7 @@
     <string name="hr_average">AVERAGE</string>
     <string name="hr_max">MAX</string>
     <string name="hr_min">MIN</string>
+    <string name="hr_alter_measure_btn_tutorial">You can also touch this button to measure your heart rate</string>
+    <string name="hr_chart_tutorial">Touch any vertical bar to show heart rate result\'s statistic and history of this day</string>
 
 </resources>

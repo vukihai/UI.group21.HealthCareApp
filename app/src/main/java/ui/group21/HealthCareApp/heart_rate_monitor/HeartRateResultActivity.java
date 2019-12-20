@@ -71,16 +71,13 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
 
         // recycler view
         UserHeartRateStatusAdapter mAdapter = new UserHeartRateStatusAdapter();
-        mAdapter.setOnUserStatusChangedCallback(new OnUserStatusChanged() {
-            @Override
-            public void onChanged(int statusCode) {
-                minValue = userHRMinValue[statusCode];
-                maxValue = userHRMaxValue[statusCode];
-                expectMinValue = userHRExpectedMinValue[statusCode];
-                expectMaxValue = userHRExpectedMaxValue[statusCode];
-                statusName = getString(userHRStatusText[statusCode]);
-                setHeartRateViewItem();
-            }
+        mAdapter.setOnUserStatusChangedCallback(statusCode -> {
+            minValue = userHRMinValue[statusCode];
+            maxValue = userHRMaxValue[statusCode];
+            expectMinValue = userHRExpectedMinValue[statusCode];
+            expectMaxValue = userHRExpectedMaxValue[statusCode];
+            statusName = getString(userHRStatusText[statusCode]);
+            setHeartRateViewItem();
         });
         rvUserHRStatus.setAdapter(mAdapter);
         rvUserHRStatus.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
