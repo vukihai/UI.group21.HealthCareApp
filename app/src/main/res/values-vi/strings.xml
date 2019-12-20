@@ -59,4 +59,5 @@
     <string name="hr_min">TỐI THIỂU</string>
     <string name="hr_alter_measure_btn_tutorial">Bạn cũng có thể chạm vào nút này để đo nhịp tim</string>
     <string name="hr_chart_tutorial">Chạm vào cột bất kì để xem thống kê và lịch sử kết quả đo nhịp tim của ngày hôm đó</string>
+    <string name="btn_got_it">Đã hiểu</string>
 </resources>
