@@ -89,7 +89,7 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
         new MaterialTapTargetPrompt.Builder(getActivity())
                 .setTarget(chart)
                 .setPrimaryText(R.string.hr_chart_tutorial)
-                .setPromptBackground(new RectanglePromptBackground())
+                .setPromptBackground(new MTTPCustom.DimmedRectPromptBackground())
                 .setPromptFocal(new RectanglePromptFocal())
                 .setPromptStateChangeListener((prompt, state) -> {
                     if (state == MaterialTapTargetPrompt.STATE_DISMISSED || state == MaterialTapTargetPrompt.STATE_FINISHED){

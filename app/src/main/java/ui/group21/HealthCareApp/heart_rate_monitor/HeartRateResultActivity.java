@@ -16,13 +16,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import ui.group21.HealthCareApp.R;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal;
 
 /**
  * Kết quả đo nhịp tim. #1.4
@@ -30,10 +33,11 @@ import ui.group21.HealthCareApp.R;
 public class HeartRateResultActivity extends AppCompatActivity implements HeartRateConstant {
     RecyclerView rvUserHRStatus;
     TextView txtHrValue, txtInProgressHrValue, txtExpectedMinValue, txtExpectedMaxValue, txtMinValue, txtMaxValue, txtAverageRange;
-    Button btnDiscard, btnSave;
+    EditText editNotes;
     Guideline glExpMin, glExpMax, glCurrentHR;
     int bpmValue, expectMinValue, expectMaxValue, minValue, maxValue;
     String statusName;
+    public static boolean showTutorial = true;
 
     public interface OnUserStatusChanged {
         void onChanged(int statusCode);
@@ -56,6 +60,7 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
 
         // bind view
         rvUserHRStatus = (RecyclerView) findViewById(R.id.rv_user_hr_status);
+        editNotes = (EditText) findViewById(R.id.edit_notes);
 
         txtHrValue = (TextView) findViewById(R.id.tv_heart_rate_value);
         txtInProgressHrValue = (TextView) findViewById(R.id.tv_current_hr);
@@ -82,6 +87,9 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         rvUserHRStatus.setAdapter(mAdapter);
         rvUserHRStatus.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         setHeartRateViewItem();
+        if (showTutorial){
+            tutorialChooseStatus();
+        }
     }
 
     @Override
@@ -150,6 +158,56 @@ public class HeartRateResultActivity extends AppCompatActivity implements HeartR
         }
         changeGuidelineWithAnim(glExpMin,0.04f + (float) (expectMinValue - minValue) / (float) (maxValue - minValue) * 0.92f);
         changeGuidelineWithAnim(glExpMax, 0.04f + (float) (expectMaxValue - minValue) / (float) (maxValue - minValue) * 0.92f);
+    }
+
+    public void tutorialChooseStatus(){
+        new MaterialTapTargetPrompt.Builder(this)
+                .setTarget(rvUserHRStatus)
+                .setPrimaryText(R.string.hr_status_tutorial)
+                .setPromptBackground(new MTTPCustom.DimmedRectPromptBackground())
+                .setPromptFocal(new RectanglePromptFocal())
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_DISMISSED || state == MaterialTapTargetPrompt.STATE_FINISHED){
+                        tutorialHRRange();
+                    }
+                })
+                .show();
+    }
+
+    public void tutorialHRRange(){
+        new MaterialTapTargetPrompt.Builder(this)
+                .setTarget(R.id.progress_hr_status_range)
+                .setPrimaryText(R.string.hr_status_range_tutorial)
+                .setPromptBackground(new MTTPCustom.DimmedCirclePromptBackground())
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_DISMISSED || state == MaterialTapTargetPrompt.STATE_FINISHED){
+                        tutorialWriteNotes();
+                    }
+                })
+                .show();
+    }
+
+    public void tutorialWriteNotes(){
+        new MaterialTapTargetPrompt.Builder(this)
+                .setTarget(editNotes)
+                .setPrimaryText(R.string.hr_notes_tutorial)
+                .setPromptBackground(new MTTPCustom.DimmedRectPromptBackground())
+                .setPromptFocal(new RectanglePromptFocal())
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_DISMISSED || state == MaterialTapTargetPrompt.STATE_FINISHED){
+                        tutorialSave();
+                    }
+                })
+                .show();
+    }
+
+    public void tutorialSave(){
+        new MaterialTapTargetPrompt.Builder(this)
+                .setTarget(R.id.menu_save)
+                .setPrimaryText(R.string.hr_measure_save_tutorial)
+                .setPromptBackground(new MTTPCustom.DimmedCirclePromptBackground())
+                .show();
+        showTutorial = false;
     }
 
     /**

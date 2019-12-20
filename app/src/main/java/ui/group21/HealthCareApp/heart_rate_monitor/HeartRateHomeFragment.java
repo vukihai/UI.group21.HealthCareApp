@@ -47,8 +47,8 @@ public class HeartRateHomeFragment extends Fragment implements HeartRateConstant
             rectanglePromptFocal.setCornerRadius(30f, 30f);
             new MaterialTapTargetPrompt.Builder(getActivity())
                     .setTarget(btnStart)
-                    .setPrimaryText(R.string.hr_alter_measure_btn_tutorial)
-                    .setPromptBackground(new RectanglePromptBackground())
+                    .setPrimaryText(R.string.hr_measure_btn_tutorial)
+                    .setPromptBackground(new MTTPCustom.DimmedRectPromptBackground())
                     .setPromptFocal(rectanglePromptFocal)
                     .show();
             showTutorial = false;

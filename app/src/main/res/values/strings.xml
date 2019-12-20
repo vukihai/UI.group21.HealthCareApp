@@ -39,7 +39,7 @@
     <string name="btn_stop">Stop</string>
     <string name="btn_pause">Pause</string>
     <string name="result">Result</string>
-    <string name="heart_rate_monitor_guide">Place your finger on your camera</string>
+    <string name="heart_rate_monitor_guide">Place your finger on your camera and flash light</string>
     <string name="btn_save">Save</string>
     <string name="google_maps_key">AIzaSyC1F4GkT6vBKNnhCfW3NI6oGP_eHCOvVfA</string>
     <string name="btn_measure_hr">Measure</string>
@@ -62,5 +62,10 @@
     <string name="btn_got_it">Got it</string>
     <string name="hr_alter_measure_btn_tutorial">You can also touch this button to measure your heart rate</string>
     <string name="hr_chart_tutorial">Touch any vertical bar to show heart rate result\'s statistic and history of this day</string>
+    <string name="hr_notes_tutorial">Remember you can write some note for more information about your status</string>
+    <string name="hr_status_tutorial">Touch to select your current health status</string>
+    <string name="hr_measure_save_tutorial">Touch the save button to finish</string>
+    <string name="hr_measure_btn_tutorial">You can touch this button to measure your heart rate</string>
+    <string name="hr_status_range_tutorial">For each status, there is a average heart rate range of normal people respectively</string>
 
 </resources>
