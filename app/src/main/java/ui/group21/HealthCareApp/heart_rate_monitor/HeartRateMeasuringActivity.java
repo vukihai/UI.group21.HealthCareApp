@@ -3,19 +3,24 @@ package ui.group21.HealthCareApp.heart_rate_monitor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -31,6 +36,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -48,6 +54,7 @@ import ui.group21.HealthCareApp.R;
 
 public class HeartRateMeasuringActivity extends AppCompatActivity implements HeartRateConstant {
 
+    public static final int PERMISSION_REQUEST_CODE = 1259;
     private Button btnStop;
     private TextView txtTempHrValue, txtTempHrBPM, txtHRGuideMessage;
     private LineChart chartHR;
@@ -56,6 +63,8 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
 
     ImageView imgHeart;
     ViewGroup.LayoutParams imgHeartLayoutParams;
+
+    TutorialDialog tutorialDialog;
 
     private Handler handler = null;
     private Runnable finnishJob = null;
@@ -83,10 +92,26 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_heart_rate_measuring);
         setTitle(getString(R.string.heart_rate_measuring));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(0);
+
+        if (isEmulator()) {
+            initView();
+            simulateHeartRateComplete(98);
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                grantCameraPermission();
+            } else {
+                initView();
+            }
+        }
+
+    }
+
+    private void initView() {
+        setContentView(R.layout.activity_heart_rate_measuring);
 
         // init value
         started = false;
@@ -141,24 +166,75 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         // HR monitor
         txtTempHrBPM.setText("");
         txtTempHrValue.setText("--");
-        TutorialDialog tutorialDialog = new TutorialDialog();
-        tutorialDialog.show(getSupportFragmentManager(), "tutorial_dialog");
-        if (true) {
-            simulateHeartRateComplete(98);
-        } else {
-            previewHolder.addCallback(surfaceCallback);
-            previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        }
-
-        btnStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelHeartRateMeasure();
-            }
-        });
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "App:DoNotDimScreen");
+        btnStop.setOnClickListener(v -> cancelHeartRateMeasure());
+
+        previewHolder.addCallback(surfaceCallback);
+        previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+        tutorialDialog = new TutorialDialog();
+        tutorialDialog.show(getSupportFragmentManager(), "tutorial_dialog");
+    }
+
+    private void grantCameraPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.CAMERA)) {
+            // user lastly refuse camera permission
+            PermissionDialog permissionDialog = new PermissionDialog();
+            permissionDialog.show(getSupportFragmentManager(), "permission_dialog");
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), R.string.hr_cam_granted, Toast.LENGTH_SHORT).show();
+                    initView();
+                    Log.d("cam", "granted");
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.hr_cam_not_grant, Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                break;
+        }
+    }
+
+    public static class PermissionDialog extends DialogFragment {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.hr_cam_diag_title)
+                    .setMessage(R.string.hr_cam_diag_desc)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.btn_got_it, (dialog1, id) -> {
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.CAMERA},
+                                PERMISSION_REQUEST_CODE);
+                    }).create();
+            dialog.getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.border_radius_white_bg);
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    positiveButton.setTextColor(getResources().getColor(R.color.white));
+                    positiveButton.setBackgroundResource(R.drawable.btn_raised);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f);
+                    positiveButton.setLayoutParams(params);
+                    positiveButton.invalidate();
+                }
+            });
+            return dialog;
+        }
     }
 
     public static class TutorialDialog extends DialogFragment {
@@ -175,23 +251,16 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
             AlertDialog dialog = new AlertDialog.Builder(getActivity())
                     .setView(v)
                     // Add action buttons
-                    .setPositiveButton(R.string.btn_got_it, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            getDialog().cancel();
-                        }
-                    }).create();
+                    .setPositiveButton(R.string.btn_got_it, (dialog1, id) -> getDialog().cancel()).create();
             dialog.getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.border_radius_white_bg);
-            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    positiveButton.setTextColor(getResources().getColor(R.color.hrRed));
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f);
-                    positiveButton.setLayoutParams(params);
-                    positiveButton.invalidate();
-                }
+            dialog.setOnShowListener(dialog12 -> {
+                Button positiveButton = ((AlertDialog) dialog12).getButton(DialogInterface.BUTTON_POSITIVE);
+                positiveButton.setTextColor(getResources().getColor(R.color.white));
+                positiveButton.setBackgroundResource(R.drawable.btn_raised);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f);
+                positiveButton.setLayoutParams(params);
+                positiveButton.invalidate();
             });
             return dialog;
         }
@@ -211,18 +280,17 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 100; i++) {
-                    handler.post(new Runnable() {
-                        public void run() {
-                            int rand = bpm - 5 + new Random().nextInt(10);
-                            progressBar.setProgressWithAnimation(progressBar.getProgress() + 1, 100L);
-                            txtTempHrValue.setText("" + rand);
-                            addEntry(rand - 30.0f);
-                            addEntry(rand);
-                        }
+                for (int i = 0; i < 20; i++) {
+                    if (i== 10) tutorialDialog.dismiss();
+                    handler.post(() -> {
+                        int rand = bpm - 5 + new Random().nextInt(10);
+                        progressBar.setProgress(progressBar.getProgress() + 5);
+                        txtTempHrValue.setText("" + rand);
+                        addEntry(rand - 30.0f);
+                        addEntry(rand);
                     });
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -243,11 +311,6 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
     }
 
     public void finishHeartRateMeasure(int bpm) {
-        //TODO: save to DB
-//                                Heart_Rate mHeart_rate = new Heart_Rate();
-//                                mHeart_rate.setheart_rate(String.valueOf(dpm));
-//                                mHeart_rate.sethr_date(String.valueOf(Calendar.getInstance().getTime().getTime()));
-//                                Heart_RateDao.insertRecord(mHeart_rate);
         Intent intent = new Intent(HeartRateMeasuringActivity.this, HeartRateResultActivity.class);
         intent.putExtra(EXTRA_HEART_RATE_VALUE, bpm);
         startActivity(intent);
@@ -319,10 +382,18 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
 
     @Override
     public void onResume() {
+        Log.d("cam", "onREsume");
         super.onResume();
-        wakeLock.acquire();
-        camera = Camera.open();
-        startTime = System.currentTimeMillis();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.d("cam", "onREsume: permission not grant");
+        } else {
+            Log.d("cam", "onREsume: open cam");
+            wakeLock.acquire(5 * 60 * 1000);
+            camera = Camera.open();
+            startTime = System.currentTimeMillis();
+        }
+
     }
 
     /**
@@ -330,14 +401,17 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
      */
     @Override
     public void onPause() {
+        Log.d("cam", "onPause");
         super.onPause();
-
-        wakeLock.release();
-
-        camera.setPreviewCallback(null);
-        camera.stopPreview();
-        camera.release();
-        camera = null;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED && camera != null) {
+            Log.d("cam", "onPause: release");
+            wakeLock.release();
+            camera.setPreviewCallback(null);
+            camera.stopPreview();
+            camera.release();
+            camera = null;
+        }
     }
 
     @Override
@@ -380,7 +454,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
             if (started) {
                 Log.d("heartrate step: ", "Thời gian đo:" + String.valueOf((System.currentTimeMillis() - startTime) / 1000) + " s");
             }
-            Log.d("heartrate step: ", String.valueOf(imgAvg));
+//            Log.d("heartrate step: ", String.valueOf(imgAvg));
             if (imgAvg < rollingAverage && imgAvg > 180) {
                 if (lastBeatTime != 0) {
                     long curTime = System.currentTimeMillis();
@@ -399,7 +473,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
                             double totalTimeInSecs = (endTime - startTime) / 1000d;
                             double bps = ((beats - 4) / totalTimeInSecs);
                             int dpm = (int) (bps * 60d);
-                            if (beats == 44) {
+                            if (beats == 14) {
                                 progressBar.setProgressWithAnimation(100.0f);
                                 txtTempHrValue.setText(String.valueOf(dpm));
                                 txtTempHrBPM.setText("BPM");
@@ -407,11 +481,12 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
                                 measuring = false;
                                 finishHeartRateMeasure(dpm);
                             }
-                            if (beats < 44) {
+                            if (beats < 14) {
                                 if (beats >= 4) {
                                     txtTempHrValue.setText(String.valueOf(dpm));
-                                    progressBar.setProgressWithAnimation(((float) beats - 4) * 100 / 40);
+                                    progressBar.setProgressWithAnimation(((float) beats - 4) * 100 / 10);
                                     txtHRGuideMessage.setText(getString(R.string.heart_rate_measuring));
+                                    tutorialDialog.dismiss();
                                     txtTempHrBPM.setText("BPM");
                                 }
                             }
@@ -457,6 +532,7 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
          */
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
+            Log.d("cam", "surfaceCreated");
             try {
                 camera.setPreviewDisplay(previewHolder);
                 camera.setPreviewCallback(previewCallback);
@@ -507,6 +583,25 @@ public class HeartRateMeasuringActivity extends AppCompatActivity implements Hea
         }
 
         return result;
+    }
+
+    public static boolean isEmulator() {
+        return (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || Build.FINGERPRINT.startsWith("generic")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.HARDWARE.contains("goldfish")
+                || Build.HARDWARE.contains("ranchu")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || Build.PRODUCT.contains("sdk_google")
+                || Build.PRODUCT.contains("google_sdk")
+                || Build.PRODUCT.contains("sdk")
+                || Build.PRODUCT.contains("sdk_x86")
+                || Build.PRODUCT.contains("vbox86p")
+                || Build.PRODUCT.contains("emulator")
+                || Build.PRODUCT.contains("simulator");
     }
 
 }
