@@ -109,16 +109,16 @@ public class SleepRecorderActivity extends AppCompatActivity {
         int today = cal.get(Calendar.DAY_OF_MONTH);
 
         for (int i = 1; i < today; ++i) {
-            float nremValue = (float) (Math.random() * ((50 - 10) + 1)) + 10;
-            float remValue = (float) (Math.random() * ((30 - 20) + 1)) + 20;
-            float wakeUpValue = (float) (Math.random() * ((20 - 10) + 1)) + 10;
+            float nremValue = (float) (Math.random() * ((6 - 3) + 1)) + 3;
+            float remValue = (float) (Math.random() * ((6 - 4) + 1)) + 4;
+            float wakeUpValue = (float) (Math.random() * ((8 - 5) + 1)) + 5;
             BarEntry stackedEntry = new BarEntry(i, new float[] {nremValue, remValue, wakeUpValue});
             xLabels.add((new Integer(i)).toString() + "/" + (new Integer(cal.get(Calendar.MONTH))).toString());
             entries.add(stackedEntry);
         }
 
         BarDataSet set = new BarDataSet(entries, "");
-        set.setStackLabels(new String[]{"Ngủ sâu", "Ngủ nông", "Tỉnh táo"});
+        set.setStackLabels(new String[]{"Ngủ sâu", "Ngủ nông", "REM"});
         set.setDrawIcons(false);
         int[] colors = new int[3];
         System.arraycopy(ColorTemplate.MATERIAL_COLORS, 0, colors, 0, 3);
