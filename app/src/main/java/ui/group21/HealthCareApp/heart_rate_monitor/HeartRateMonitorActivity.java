@@ -1,6 +1,7 @@
 package ui.group21.HealthCareApp.heart_rate_monitor;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
@@ -8,11 +9,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -73,6 +77,40 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
             public void onPageScrollStateChanged(int state) {
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Dialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Chọn trải nghiệm")
+                .setMessage("Bấm Trải nghiệm để cài đặt và trải nghiệm ứng dụng hoàn thiện thực tế hoặc bấm Xem giao diện để tiếp tục xem giao diện mẫu!")
+                .setCancelable(false)
+                .setNegativeButton("Xem giao diện", (dialog1, which) -> {
+                    dialog1.cancel();
+                })
+                .setPositiveButton("Trải nghiệm", (dialog1, which) -> {
+                    try {
+                        Intent i = new Intent();
+                        i.setAction("cf.bautroixa.heartratemonitor.ACCESS");
+                        startActivity(i);
+                    } catch (Exception e) {
+                        Dialog dldialog = new AlertDialog.Builder(this)
+                                .setTitle("Tải xuống gói mở rộng")
+                                .setMessage("Ứng dụng cần cài đặt gói mở rộng để có thể đo nhịp tim và thống kê, bấm Tải xuống để cài đặt gói mở rộng hoặc bấm Hủy để tiếp tục xem giao diện!")
+                                .setCancelable(false)
+                                .setNegativeButton("Hủy", (dialog2, which2) -> {
+                                    dialog2.cancel();
+                                })
+                                .setPositiveButton("Tải xuống", (dialog2, which2) -> {
+                                    Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bit.ly/bautroixahr"));
+                                    startActivity(browse);
+                                }).create();
+                        dldialog.show();
+                    }
+                }).create();
+        dialog.show();
+
     }
 
     private void showFabTutorial() {
