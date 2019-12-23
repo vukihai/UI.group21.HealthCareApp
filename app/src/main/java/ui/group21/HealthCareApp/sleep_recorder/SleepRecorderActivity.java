@@ -65,8 +65,8 @@ public class SleepRecorderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Theo dõi giấc ngủ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Theo dõi giấc ngủ");
         setContentView(R.layout.activity_sleep_recorder);
         initViews();
         initActions();
