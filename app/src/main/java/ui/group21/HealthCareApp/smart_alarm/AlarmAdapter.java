@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import ui.group21.HealthCareApp.R;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
-    private ArrayList<Alarm> mListAlarm = new ArrayList<>();
+    private ArrayList<Alarm> mListAlarm ;
     private Context mContext;
     private OnAlarmClickListener mOnAlarmClickListener;
 
     public AlarmAdapter(Context context, ArrayList<Alarm> ListAlarm){
-        context = mContext;
-        ListAlarm = mListAlarm;
+        mContext = context;
+        mListAlarm = ListAlarm;
     }
     @NonNull
     @Override
@@ -33,7 +33,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.mTxtTime.setText(mListAlarm.get(position).getTime());
     }
 
     @Override
@@ -53,6 +53,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                     if (mOnAlarmClickListener != null){
                         mOnAlarmClickListener.onAlarmClick(getAdapterPosition());
                     }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    return false;
                 }
             });
         }
