@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4.5"
-        android:background="@color/colorGray"
         android:orientation="horizontal">
 
         <TimePicker
             android:id="@+id/time_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:headerBackground="@color/homeActionBar"
+            android:hapticFeedbackEnabled="false"
+            android:headerBackground="@drawable/bg_smart_alarm"
+            android:numbersBackgroundColor="@color/color_smart_alarm_content"
+            android:numbersInnerTextColor="@color/white"
+            android:numbersTextColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:outlineSpotShadowColor="@color/color_smart_alarm_content"
             android:timePickerMode="clock" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="@drawable/frame_rounded_corner"
+        android:layout_weight="2.5"
+        android:background="@drawable/border_radius"
         android:orientation="vertical">
 
         <LinearLayout
@@ -157,11 +165,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
-        android:orientation="horizontal"
-        android:background="@color/blue">
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:layout_marginTop="13dp"
             android:id="@+id/txt_exit"
             android:layout_width="wrap_content"
@@ -169,9 +176,12 @@
             android:layout_weight="1"
             android:text="Thoát"
             android:textAlignment="center"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/border_radius"
+            android:textColor="@color/color_smart_alarm_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-        <TextView
+        <Button
             android:id="@+id/txt_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -179,6 +189,9 @@
             android:textAlignment="center"
             android:layout_marginTop="13dp"
             android:text="Lưu"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/border_radius"
+            android:textColor="@color/color_smart_alarm_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </LinearLayout>
 </LinearLayout>
