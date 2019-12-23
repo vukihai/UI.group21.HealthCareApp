@@ -16,10 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".long_sit_reminder.LongSitReminderActivity"></activity>
+        <activity android:name=".sleep_recorder.SleepRecorderGuide" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".heart_rate_monitor.HeartRateMeasuringActivity"
             android:theme="@style/Theme.HeartRate" />
@@ -29,12 +32,23 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".inavtive_time_reminder.InactiveTimeReminderActivity" />
-        <activity android:name=".smart_alarm.SmartAlarmActivity" />
-        <activity android:name=".smart_alarm.SettingAlarmActivity" />
-
+        <activity android:name=".smart_alarm.SmartAlarmActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".smart_alarm.SettingAlarmActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".smart_alarm.SmartAlarmActivity" />
+        </activity>
         <activity
             android:name=".sleep_recorder.SleepAnalysisActivity"
-            android:exported="true" />
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".sleep_recorder.SleepRecorderActivity"
             android:exported="true">

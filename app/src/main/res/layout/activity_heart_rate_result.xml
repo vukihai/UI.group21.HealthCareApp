@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/img_heart_rate" />
 
     <ProgressBar
-        android:id="@+id/progressBar3"
+        android:id="@+id/progress_hr_status_range"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -89,25 +89,32 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_expect_min_hr"
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
+    <View
+        android:id="@+id/bg_hr_status"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/border_radius_white_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_user_hr_status"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/tv_choose_your_status" />
     <TextView
         android:id="@+id/tv_choose_your_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/border_radius_white_bg_top"
         android:paddingHorizontal="16dp"
         android:paddingVertical="16dp"
         android:text="@string/hr_choose_status"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_notes" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_hr_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_radius_white_bg_bottom"
         android:paddingHorizontal="16dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintHorizontal_bias="0.0"
@@ -202,7 +209,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.39" />
+        app:layout_constraintGuide_percent="0.3966" />
 
     <TextView
         android:id="@+id/tv_hr_range_description"
@@ -214,16 +221,26 @@
         android:textColor="@color/hrRed"
         app:layout_constraintEnd_toStartOf="@+id/guideline_expect_max_hr"
         app:layout_constraintStart_toStartOf="@+id/guideline_expect_min_hr"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_hr_status_range" />
+
+    <View
+        android:id="@+id/bg_notes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/border_radius_white_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_notes"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/tv_notes" />
 
     <TextView
         android:id="@+id/tv_notes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/border_radius_white_bg_top"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
         android:text="@string/hr_notes"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
@@ -231,13 +248,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_hr_range_description" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edit_notes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_radius_white_bg_bottom"
         android:gravity="top|left"
         android:hint="@string/hr_type_some_notes"
         android:inputType="textMultiLine"
+        android:background="@android:color/transparent"
         android:lines="3"
         android:maxLines="4"
         android:minLines="3"
