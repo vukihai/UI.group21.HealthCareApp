@@ -46,10 +46,10 @@ public class SleepRecorderActivity extends AppCompatActivity {
         public void onClick(View view) {
             isRecording = !isRecording;
             if(isRecording) {
-                mSleepRecordingButton.setText("Tạm dừng");
+                mSleepRecordingButton.setText("Đã thức dậy");
                 startRecording();
             } else {
-                mSleepRecordingButton.setText("Bắt đầu");
+                mSleepRecordingButton.setText("Bắt đầu đi ngủ");
                 stopRecording();
             }
         }
@@ -95,9 +95,9 @@ public class SleepRecorderActivity extends AppCompatActivity {
 
         isRecording = isServiceRunning();
         if(isRecording) {
-            mSleepRecordingButton.setText("Tạm dừng");
+            mSleepRecordingButton.setText("Đã thức dậy");
         } else {
-            mSleepRecordingButton.setText("Bắt đầu");
+            mSleepRecordingButton.setText("Bắt đầu đi ngủ");
         }
     }
 

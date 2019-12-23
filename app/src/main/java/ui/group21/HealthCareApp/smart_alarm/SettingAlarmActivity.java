@@ -29,6 +29,8 @@ public class SettingAlarmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Cài đặt báo thức");
         setContentView(R.layout.activity_setting_alarm);
         initView();
         initAction();
