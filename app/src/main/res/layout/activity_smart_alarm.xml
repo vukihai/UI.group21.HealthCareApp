@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     tools:context=".smart_alarm.SmartAlarmActivity">
 
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="197dp"
-        android:layout_height="102dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="192dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,29 +23,29 @@
         android:id="@+id/rcy_alarm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="250dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp" />
 
     <Button
         android:id="@+id/guideSmartAlarmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bg_smart_alarm"
         android:drawableLeft="@drawable/ic_local_library_grey_24dp"
         android:drawablePadding="3dip"
         android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp"
         android:text="Hướng dẫn"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/rcy_alarm"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
 <!--    <Button-->
 <!--        android:id="@+id/btn_guide"-->
@@ -62,8 +61,7 @@
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="27dp"
         android:clickable="true"
         app:backgroundTint="@color/color_smart_alarm_content"
@@ -71,23 +69,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />
 
-    <TextView
-        android:id="@+id/txt_checkList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="28dp"
-        android:clickable="true"
-        android:text="@string/Alarm_checkList"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:visibility="gone"
-        app:backgroundTint="@color/color_smart_alarm_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    app:layout_constraintEnd_toStartOf="@id/add"
-    app:srcCompat="@drawable/ic_alarm" />
+<!--    <TextView-->
+<!--        android:id="@+id/txt_checkList"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="36dp"-->
+<!--        android:layout_marginRight="36dp"-->
+<!--        android:layout_marginBottom="28dp"-->
+<!--        android:clickable="true"-->
+<!--        android:text="@string/Alarm_checkList"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+<!--        android:visibility="gone"-->
+<!--        app:backgroundTint="@color/color_smart_alarm_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

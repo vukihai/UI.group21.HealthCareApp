@@ -172,7 +172,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
         mAlarmGuideDialog = new Dialog(SmartAlarmActivity.this);
         mAlarmGuideDialog.setContentView(R.layout.dialog_alarm_guide);
 //        mBtnGuide = findViewById(R.id.btn_guide);
-        mTxtCheckList = findViewById(R.id.txt_checkList);
+//        mTxtCheckList = findViewById(R.id.txt_checkList);
     }
 
 }
