@@ -54,7 +54,7 @@ public class StepCounterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setTitle("Đếm bước");
+        setTitle("Đếm bước");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         target = 2000;
         setContentView(R.layout.activity_step_counter);

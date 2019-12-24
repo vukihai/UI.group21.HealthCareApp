@@ -37,7 +37,7 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/border_radius_white_bg_top">
+            android:background="@drawable/border_radius_white_bg_top_stroke">
 
         </androidx.viewpager.widget.ViewPager>
 

@@ -35,6 +35,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import ui.group21.HealthCareApp.R;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal;
 
 public class HeartRateTrendFragment extends Fragment implements OnChartValueSelectedListener, HeartRateConstant {
 
@@ -42,11 +45,16 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
     TextView txtAvgValue, txtMaxValue, txtMinValue;
     RecyclerView rvHrHistory;
     private final RectF onValueSelectedRectF = new RectF();
+    OnTutorialFinished callback;
 
     // demo data
-    int[] maxValues = {120, 111, 132, 100, 99, 98, 103};
-    int[] avgValues = {80, 86, 81, 99, 70, 77, 82};
-    int[] minValues = {60, 61, 62, 63, 64, 65, 66};
+    int[] maxValues = {120, 111, 0, 100, 99, 98, 103};
+    int[] avgValues = {80, 86, 0, 99, 70, 77, 82};
+    int[] minValues = {60, 61, 0, 63, 64, 65, 66};
+
+    public interface OnTutorialFinished {
+        void onFinished();
+    }
 
     public HeartRateTrendFragment() {
     }
@@ -58,6 +66,41 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
 //        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            onResume();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!getUserVisibleHint()){
+            return;
+        }
+        if (!HeartRateMonitorActivity.showTutorial){
+            return;
+        }
+        new MaterialTapTargetPrompt.Builder(getActivity())
+                .setTarget(chart)
+                .setPrimaryText(R.string.hr_chart_tutorial)
+                .setPromptBackground(new MTTPCustom.DimmedRectPromptBackground())
+                .setPromptFocal(new RectanglePromptFocal())
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_DISMISSED || state == MaterialTapTargetPrompt.STATE_FINISHED){
+                        callback.onFinished();
+                    }
+                })
+                .show();
+    }
+
+    public void setOnTutorialFinishedListener(OnTutorialFinished callback){
+        this.callback = callback;
     }
 
     @Override
@@ -110,6 +153,7 @@ public class HeartRateTrendFragment extends Fragment implements OnChartValueSele
         chart.getAxisRight().setEnabled(false);
         chart.getLegend().setEnabled(false);
         setData(7, 150);
+
         return view;
     }
 

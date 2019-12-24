@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         routeButton = findViewById(R.id.btn_route);
         sleepButton = findViewById(R.id.btn_sleep);
         smartAlarmButton = findViewById(R.id.btn_smart_alarm);
-        profileButton = findViewById(R.id.btn_profile);
+        profileButton = findViewById(R.id.btn_long_sit_reminder);
         caloButton=findViewById(R.id.btn_calo_history);
         heartRateButton.setOnClickListener(this);
         stepButton.setOnClickListener(this);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 smartAlarmIntent = new Intent(thisContext, SmartAlarmActivity.class);
                 startActivity(smartAlarmIntent);
                 break;
-            case R.id.btn_profile:
+            case R.id.btn_long_sit_reminder:
                 profileIntent = new Intent(thisContext, UserProfileActivity.class);
                 startActivity(profileIntent);
                 break;

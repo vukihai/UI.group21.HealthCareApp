@@ -29,6 +29,8 @@ public class SettingAlarmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Cài đặt báo thức");
         setContentView(R.layout.activity_setting_alarm);
         initView();
         initAction();
@@ -42,17 +44,31 @@ public class SettingAlarmActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hour = timePicker.getCurrentHour();
                 minute = timePicker.getCurrentMinute();
-                mTxtTime = hour + ":" + minute;
-                if(mSwtMusic.isChecked()) mCheckMusic = true;
-                else mCheckMusic = false;
-                if(mSwtRung.isChecked()) mCheckRung = true;
-                else mCheckRung = false;
+                if(minute<10 && hour >10){
+                    mTxtTime = hour + ":0" + minute;
+                }
+                else if (minute<10 && hour < 10){
+                        mTxtTime = "0"+hour + ":0" + minute;
+                    }
+                    else if( minute >10 && hour <10){
+                            mTxtTime = "0"+hour + ":" + minute;
+                        }
+                        else  mTxtTime = hour + ":" + minute;
+                mCheckMusic = mSwtMusic.isChecked();
+                mCheckRung = mSwtRung.isChecked();
                 Log.d("âdada", mTxtTime +" ? " +mCheckMusic+" ? "+mCheckRung );
                 Intent intent = new Intent(v.getContext(), SmartAlarmActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("time", mTxtTime);
                 intent.putExtra("music",mCheckMusic);
                 intent.putExtra("rung", mCheckRung);
                 v.getContext().startActivity(intent);
+            }
+        });
+        mTxtExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

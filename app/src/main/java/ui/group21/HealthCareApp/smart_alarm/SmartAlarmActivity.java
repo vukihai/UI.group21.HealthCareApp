@@ -1,15 +1,15 @@
 package ui.group21.HealthCareApp.smart_alarm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.LinearLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,26 +24,55 @@ import ui.group21.HealthCareApp.R;
 public class SmartAlarmActivity extends AppCompatActivity {
     FloatingActionButton add;
     private RecyclerView mRcvTime;
-    private AlarmAdapter mAlarmAdapter;
-    private ArrayList<Alarm> mListAlarm = new ArrayList<>();
+    private ArrayList<Alarm> mListAlarm ;
+    private final OnAlarmClickListener mOnItemAlarmClickListener = new OnAlarmClickListener() {
+        @Override
+        public void onAlarmClick(int position) {
+            Intent intent = new Intent(getApplicationContext(), SettingAlarmActivity.class);
+            startActivity(intent);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Báo thức thông minh");
         setContentView(R.layout.activity_smart_alarm);
-        initView();
         initData();
+        getData();
+        initView();
         initAction();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void getData() {
+        String mTime = getIntent().getStringExtra("time");
+        Boolean mCheckMusic = getIntent().getBooleanExtra("music", false);
+        Boolean mCheckRung = getIntent().getBooleanExtra("rung", false);
+        if(mTime !=null) {
+            mListAlarm.add(new Alarm(mTime, mCheckMusic, mCheckRung));
+        }
     }
 
     private void initData() {
         mListAlarm = new ArrayList<>();
-        mListAlarm.add(new Alarm("4:00",true,true));
+        mListAlarm.add(new Alarm("04:45",true,true));
+        mListAlarm.add(new Alarm("06:30",true,false));
     }
 
     @SuppressLint("WrongConstant")
     private void initAction() {
-        mAlarmAdapter = new AlarmAdapter(this, mListAlarm);
-//        mAlarmAdapter.setAlarmClick(this);
+        AlarmAdapter mAlarmAdapter = new AlarmAdapter(this, mListAlarm);
+        mAlarmAdapter.setAlarmClick(mOnItemAlarmClickListener);
         mRcvTime.setAdapter(mAlarmAdapter);
         mRcvTime.setLayoutManager(new LinearLayoutManager(SmartAlarmActivity.this, LinearLayout.VERTICAL, false));
         add.setOnClickListener(new View.OnClickListener() {
