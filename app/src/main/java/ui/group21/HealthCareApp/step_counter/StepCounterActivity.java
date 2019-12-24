@@ -55,7 +55,9 @@ public class StepCounterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Đếm bước");
+        setTitleColor(Color.BLACK);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         target = 2000;
         setContentView(R.layout.activity_step_counter);
         mStepChart = findViewById(R.id.historyStepCounterChart);
