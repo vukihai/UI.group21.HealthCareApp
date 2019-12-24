@@ -57,8 +57,8 @@
 
                 <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/circle_heart"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:layout_gravity="center"
                     app:cpb_background_progressbar_color="#E52828"
                     app:cpb_background_progressbar_width="3dp"
@@ -73,8 +73,8 @@
 
                 <Button
                     android:id="@+id/btn_heart_rate"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:background="#00000000"
                     app:layout_constraintBottom_toBottomOf="@+id/circle_heart"
                     app:layout_constraintLeft_toLeftOf="@+id/circle_heart"
@@ -107,8 +107,8 @@
 
                 <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/circle_step"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:layout_gravity="center"
                     app:cpb_background_progressbar_color="#74b9ff"
                     app:cpb_background_progressbar_width="3dp"
@@ -124,8 +124,8 @@
 
                 <Button
                     android:id="@+id/btn_step"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:background="#00000000"
                     app:layout_constraintBottom_toBottomOf="@+id/circle_step"
                     app:layout_constraintLeft_toLeftOf="@+id/circle_step"
@@ -156,8 +156,8 @@
 
                 <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/circle_route"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:layout_gravity="center"
                     app:cpb_background_progressbar_color_end="#4A00E0"
                     app:cpb_background_progressbar_color_start="#8E2DE2"
@@ -173,8 +173,8 @@
 
                 <Button
                     android:id="@+id/btn_route"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:background="#00000000"
                     app:layout_constraintBottom_toBottomOf="@+id/circle_route"
                     app:layout_constraintLeft_toLeftOf="@+id/circle_route"
@@ -205,8 +205,8 @@
 
                 <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/circle_calos"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:layout_gravity="center"
                     app:cpb_background_progressbar_color_end="#f5af19"
                     app:cpb_background_progressbar_color_start="#f12711"
@@ -223,8 +223,8 @@
 
                 <Button
                     android:id="@+id/btn_calo_history"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
                     android:background="#00000000"
 
                     app:layout_constraintBottom_toBottomOf="@+id/circle_calos"
