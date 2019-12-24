@@ -82,35 +82,6 @@ public class HeartRateMonitorActivity extends AppCompatActivity implements Heart
     @Override
     protected void onResume() {
         super.onResume();
-        Dialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Chọn trải nghiệm")
-                .setMessage("Bấm Trải nghiệm để cài đặt và trải nghiệm ứng dụng hoàn thiện thực tế hoặc bấm Xem giao diện để tiếp tục xem giao diện mẫu!")
-                .setCancelable(false)
-                .setNegativeButton("Xem giao diện", (dialog1, which) -> {
-                    dialog1.cancel();
-                })
-                .setPositiveButton("Trải nghiệm", (dialog1, which) -> {
-                    try {
-                        Intent i = new Intent();
-                        i.setAction("cf.bautroixa.heartratemonitor.ACCESS");
-                        startActivity(i);
-                    } catch (Exception e) {
-                        Dialog dldialog = new AlertDialog.Builder(this)
-                                .setTitle("Tải xuống gói mở rộng")
-                                .setMessage("Ứng dụng cần cài đặt gói mở rộng để có thể đo nhịp tim và thống kê, bấm Tải xuống để cài đặt gói mở rộng hoặc bấm Hủy để tiếp tục xem giao diện!")
-                                .setCancelable(false)
-                                .setNegativeButton("Hủy", (dialog2, which2) -> {
-                                    dialog2.cancel();
-                                })
-                                .setPositiveButton("Tải xuống", (dialog2, which2) -> {
-                                    Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bit.ly/bautroixahr"));
-                                    startActivity(browse);
-                                }).create();
-                        dldialog.show();
-                    }
-                }).create();
-        dialog.show();
-
     }
 
     private void showFabTutorial() {

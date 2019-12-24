@@ -201,7 +201,7 @@
             <FrameLayout
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="282dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/border_radius">
@@ -217,7 +217,7 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/historyStepCounterChart"
                     android:layout_width="match_parent"
-                    android:layout_height="252dp"
+                    android:layout_height="291dp"
                     android:layout_marginTop="10dp"
                     android:outlineSpotShadowColor="@color/color_step_counter_content" />
             </FrameLayout>

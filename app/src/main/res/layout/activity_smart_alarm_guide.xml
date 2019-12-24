@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/smart_alarm"
+    android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:context=".sleep_recorder.SleepRecorderGuide">
 
     <Button
-        android:id="@+id/ok_sleep_recorder_guide"
+        android:id="@+id/ok_smart_alarm_guide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

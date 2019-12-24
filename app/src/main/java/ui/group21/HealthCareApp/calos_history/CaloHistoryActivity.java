@@ -52,6 +52,7 @@ public class CaloHistoryActivity extends AppCompatActivity {
         Log.d("calo","here");
         setContentView(R.layout.activity_calo_history);
         setTitle("Năng lượng tiêu thụ");
+        setTitleColor(Color.WHITE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mCaloChart = findViewById(R.id.historyCaloCounterChart);
         mStatusTextView=findViewById(R.id.tv_status_calo_history);

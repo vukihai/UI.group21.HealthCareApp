@@ -18,7 +18,7 @@
         android:orientation="vertical">
         <Button
             android:id="@+id/guideButton"
-            android:textColor="#6B6B6B"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="12dp"
             android:layout_marginVertical="10dp"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="3dip"
             android:drawableLeft="@drawable/ic_local_library_grey_24dp"
-            android:background="#FFFDE7"
+            android:background="@drawable/bg_sleep_recoder"
             android:text="Hướng dẫn"></Button>
     </LinearLayout>
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round_button_start_pause_sleep_recording"
         android:textSize="20dp"
-        android:textColor="#42A5F5"
+        android:textColor="@color/color_sleep_recorder_content"
         android:text="Đi ngủ" />
 
     <LinearLayout
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/sleepRecordingButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="282dp"
+        android:layout_height="292dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/border_radius"
@@ -63,13 +63,13 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Lịch sử"
-            android:textColor="@color/color_step_counter_content"
+            android:textColor="@color/color_sleep_recorder_content"
             android:textSize="16sp" />
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/sleepStaticChart"
             android:layout_height="252dp"
             android:layout_marginTop="10dp"
-            android:outlineSpotShadowColor="@color/color_step_counter_content"
+            android:outlineSpotShadowColor="@color/color_sleep_recorder_content"
             android:layout_width="match_parent"
  />
     </LinearLayout>

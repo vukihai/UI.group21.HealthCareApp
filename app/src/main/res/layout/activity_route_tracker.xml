@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
+
     tools:context=".route_tracker.RouteTrackerActivity">
 
     <FrameLayout
@@ -16,11 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingLeft="72dp"
+            android:paddingLeft="52dp"
             android:text="Chạy bộ"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+             />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -33,6 +34,8 @@
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"

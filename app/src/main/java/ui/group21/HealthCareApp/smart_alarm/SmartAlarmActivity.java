@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
     public final String SHARED_PREFERENCES_NAME = "Alarm";
     private TextView mTxtCheckList;
     private Button mBtnGuide;
+    private Button okGuide;
     private final OnAlarmClickListener mOnItemAlarmClickListener = new OnAlarmClickListener() {
         @Override
         public void onAlarmClick(int position) {
@@ -75,6 +77,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
         getData();
         initView();
         initAction();
+
     }
 
     private void loadData() {
@@ -144,12 +147,12 @@ public class SmartAlarmActivity extends AppCompatActivity {
             Intent intent = new Intent(v.getContext(), SettingAlarmActivity.class);
             v.getContext().startActivity(intent);
         });
-        mBtnGuide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAlarmGuideDialog.show();
-            }
-        });
+//        mBtnGuide.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mAlarmGuideDialog.show();
+//            }
+//        });
         if(mListAlarm.size()==0){
             mTxtCheckList.setVisibility(View.VISIBLE);
         }
@@ -158,9 +161,17 @@ public class SmartAlarmActivity extends AppCompatActivity {
     private void initView() {
         add = findViewById(R.id.add);
         mRcvTime = findViewById(R.id.rcy_alarm);
+        okGuide= findViewById(R.id.guideSmartAlarmButton);
+        okGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SmartAlarmActivity.this, SmartAlarmGuide.class);
+                startActivity(i);
+            }
+        });
         mAlarmGuideDialog = new Dialog(SmartAlarmActivity.this);
         mAlarmGuideDialog.setContentView(R.layout.dialog_alarm_guide);
-        mBtnGuide = findViewById(R.id.btn_guide);
+//        mBtnGuide = findViewById(R.id.btn_guide);
         mTxtCheckList = findViewById(R.id.txt_checkList);
     }
 
