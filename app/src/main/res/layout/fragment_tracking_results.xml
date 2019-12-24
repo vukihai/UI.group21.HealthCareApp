@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp"
     tools:context=".route_tracker.TrackingResultsFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -31,7 +33,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="chi tiết tập luyện " />
+            android:text="Chi tiết tập luyện " />
 
         <View
             android:id="@+id/divider"
@@ -55,32 +57,32 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thời gian luyện tập"
+                android:gravity="center_horizontal"/>
+            <TextView
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="00:15:00" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="thời gian luyện tập"
-                android:gravity="center_horizontal"/>
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="513 Kcal" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="calo tiêu hao" />
+                android:text="Năn lượng tiêu hao" />
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="513 Kcal" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,6 +91,13 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Quãng đường" />
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
@@ -96,26 +105,19 @@
                 android:gravity="center_horizontal"
                 android:text="10,00 km" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="khoảng cách" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="20km/h" />
 
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="vận tốc" />
+                android:text="Vận tốc trung bình" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="20km/h" />
         </LinearLayout>
     </LinearLayout>
 

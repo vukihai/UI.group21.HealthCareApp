@@ -98,8 +98,8 @@ public class TrackingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("kết thúc")
-                        .setMessage("bạn muốn kết thúc hành trình?")
+                        .setTitle("Kết thúc")
+                        .setMessage("Bạn muốn kết thúc hành trình?")
 
                         // Specifying a listener allows you to take an action before dismissing the dialog.
                         // The dialog is automatically dismissed when a dialog button is clicked.

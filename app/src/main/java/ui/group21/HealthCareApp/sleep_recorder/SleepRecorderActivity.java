@@ -108,17 +108,21 @@ public class SleepRecorderActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         int today = cal.get(Calendar.DAY_OF_MONTH);
 
+        // Shallow stage: about 50% of sleep time
+        // Deep stage: 20 - 30 % of sleep time
+        // REM: 20%
+
         for (int i = 1; i < today; ++i) {
-            float nremValue = (float) (Math.random() * ((6 - 3) + 1)) + 3;
-            float remValue = (float) (Math.random() * ((6 - 4) + 1)) + 4;
-            float wakeUpValue = (float) (Math.random() * ((8 - 5) + 1)) + 5;
-            BarEntry stackedEntry = new BarEntry(i, new float[] {nremValue, remValue, wakeUpValue});
+            float shallowValue = (float) (Math.random() * ((4 - 2) + 1)) + 2;
+            float remValue = (float) (Math.random() * ((3 - 1) + 1)) + 1;
+            float deepValue = (float) (Math.random() * ((2 - 1) + 1)) + 1;
+            BarEntry stackedEntry = new BarEntry(i, new float[] {shallowValue, deepValue, remValue});
             xLabels.add((new Integer(i)).toString() + "/" + (new Integer(cal.get(Calendar.MONTH))).toString());
             entries.add(stackedEntry);
         }
 
         BarDataSet set = new BarDataSet(entries, "");
-        set.setStackLabels(new String[]{"Ngủ sâu", "Ngủ nông", "REM"});
+        set.setStackLabels(new String[]{"Ngủ nông", "Ngủ sâu", "Ngủ mơ (REM)"});
         set.setDrawIcons(false);
         int[] colors = new int[3];
         System.arraycopy(ColorTemplate.MATERIAL_COLORS, 0, colors, 0, 3);
