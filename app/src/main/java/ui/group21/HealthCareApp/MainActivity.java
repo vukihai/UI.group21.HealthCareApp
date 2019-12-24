@@ -98,8 +98,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //start activity listener for button click
         switch (v.getId()){
             case R.id.btn_heart_rate:
-                heartRateIntent = new Intent(thisContext, HeartRateMonitorActivity.class);
-                startActivity(heartRateIntent);
+                try {
+                    Intent i = new Intent();
+                    i.setAction("cf.bautroixa.heartratemonitor.ACCESS");
+                    startActivity(i);
+                } catch (Exception e) {
+                    heartRateIntent = new Intent(thisContext, HeartRateMonitorActivity.class);
+                    startActivity(heartRateIntent);
+                }
                 break;
             case R.id.btn_step:
                 stepIntent = new Intent(thisContext, StepCounterActivity.class);
