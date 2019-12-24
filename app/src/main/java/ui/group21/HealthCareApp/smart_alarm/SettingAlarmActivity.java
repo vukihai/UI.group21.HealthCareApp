@@ -20,6 +20,8 @@ public class SettingAlarmActivity extends AppCompatActivity {
     private TextView mTxtExit;
     private TextView mTxtSave;
     int hour, minute;
+    int setHour, setMinute;
+    Boolean setCheckMusic,setCheckRung;
     private String mTxtTime;
     private Switch mSwtRung;
     private Switch mSwtMusic;
@@ -32,8 +34,16 @@ public class SettingAlarmActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Cài đặt báo thức");
         setContentView(R.layout.activity_setting_alarm);
+        getData();
         initView();
         initAction();
+    }
+
+    private void getData() {
+        setHour = getIntent().getIntExtra("setHour",99);
+        setMinute = getIntent().getIntExtra("setMinute",99);
+        setCheckMusic = getIntent().getBooleanExtra("setCheckMusic",false);
+        setCheckRung = getIntent().getBooleanExtra("setCheckRung",false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -44,22 +54,12 @@ public class SettingAlarmActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hour = timePicker.getCurrentHour();
                 minute = timePicker.getCurrentMinute();
-                if(minute<10 && hour >10){
-                    mTxtTime = hour + ":0" + minute;
-                }
-                else if (minute<10 && hour < 10){
-                        mTxtTime = "0"+hour + ":0" + minute;
-                    }
-                    else if( minute >10 && hour <10){
-                            mTxtTime = "0"+hour + ":" + minute;
-                        }
-                        else  mTxtTime = hour + ":" + minute;
                 mCheckMusic = mSwtMusic.isChecked();
                 mCheckRung = mSwtRung.isChecked();
-                Log.d("âdada", mTxtTime +" ? " +mCheckMusic+" ? "+mCheckRung );
                 Intent intent = new Intent(v.getContext(), SmartAlarmActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("time", mTxtTime);
+                intent.putExtra("hour", hour);
+                intent.putExtra("minute", minute);
                 intent.putExtra("music",mCheckMusic);
                 intent.putExtra("rung", mCheckRung);
                 v.getContext().startActivity(intent);
@@ -73,6 +73,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
         timePicker = findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
@@ -80,6 +81,11 @@ public class SettingAlarmActivity extends AppCompatActivity {
         mTxtSave = findViewById(R.id.txt_save);
         mSwtMusic = findViewById(R.id.swt_music);
         mSwtRung = findViewById(R.id.swt_rung);
-
+        if(setHour != 99 && setMinute!=99){
+            timePicker.setHour(setHour);
+            timePicker.setMinute(setMinute);
+        }
+        if(setCheckMusic) mSwtMusic.setChecked(true);
+        if(setCheckRung) mSwtRung.setChecked(true);
     }
 }
