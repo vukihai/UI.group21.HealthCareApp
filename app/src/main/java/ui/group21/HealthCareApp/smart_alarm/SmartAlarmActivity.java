@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
     FloatingActionButton add;
     private RecyclerView mRcvTime;
     private ArrayList<Alarm> mListAlarm ;
+    private Button okGuide;
     private final OnAlarmClickListener mOnItemAlarmClickListener = new OnAlarmClickListener() {
         @Override
         public void onAlarmClick(int position) {
@@ -43,6 +45,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
         getData();
         initView();
         initAction();
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -88,6 +91,14 @@ public class SmartAlarmActivity extends AppCompatActivity {
     private void initView() {
         add = findViewById(R.id.add);
         mRcvTime = findViewById(R.id.rcy_alarm);
+        okGuide= findViewById(R.id.guideSmartAlarmButton);
+        okGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SmartAlarmActivity.this, SmartAlarmGuide.class);
+                startActivity(i);
+            }
+        });
     }
 
 }
