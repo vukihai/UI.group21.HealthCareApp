@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,7 +31,7 @@ import ui.group21.HealthCareApp.step_counter.StepCounterActivity;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     DrawerLayout mDrawerLayout;
     ListView mListView;
-    Button heartRateButton, stepButton, routeButton, sleepButton, smartAlarmButton, profileButton, caloButton;
+    Button heartRateButton, stepButton, routeButton, sleepButton, smartAlarmButton, profileButton, caloButton, goalButton;
     Intent heartRateIntent, stepIntent,routeIntent,sleepIntent, smartAlarmIntent, profileIntent,caloIntent;
     Context thisContext;
     @Override
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stepButton = findViewById(R.id.btn_step);
         routeButton = findViewById(R.id.btn_route);
         sleepButton = findViewById(R.id.btn_sleep);
+        goalButton = findViewById(R.id.btn_goal);
         smartAlarmButton = findViewById(R.id.btn_smart_alarm);
         profileButton = findViewById(R.id.btn_long_sit_reminder);
         caloButton=findViewById(R.id.btn_calo_history);
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sleepButton.setOnClickListener(this);
         smartAlarmButton.setOnClickListener(this);
         profileButton.setOnClickListener(this);
+        goalButton.setOnClickListener(this);
         caloButton.setOnClickListener(this);
     }
 
@@ -107,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(heartRateIntent);
                 }
                 break;
+            case R.id.btn_goal:
+                Toast.makeText(this, "Tính năng sắp ra mắt", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.btn_step:
                 stepIntent = new Intent(thisContext, StepCounterActivity.class);
                 startActivity(stepIntent);
@@ -124,8 +130,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(smartAlarmIntent);
                 break;
             case R.id.btn_long_sit_reminder:
-                profileIntent = new Intent(thisContext, UserProfileActivity.class);
-                startActivity(profileIntent);
+//                profileIntent = new Intent(thisContext, UserProfileActivity.class);
+//                startActivity(profileIntent);
+                Toast.makeText(this, "Tính năng sắp ra mắt", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_calo_history:
                 Log.d("calo","BTN CLICK CALO");
