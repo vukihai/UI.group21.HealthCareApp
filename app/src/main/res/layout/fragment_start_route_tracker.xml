@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_weight="1"
-            android:text="Mục tiêu:"
+            android:text="Mục tiêu (km):"
             android:textSize="16sp" />
 
         <EditText
