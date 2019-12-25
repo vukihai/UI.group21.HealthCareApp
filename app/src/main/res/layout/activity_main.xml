@@ -265,7 +265,7 @@
             <Button
                 android:id="@+id/btn_goal"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="0dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"

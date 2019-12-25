@@ -73,5 +73,6 @@
     <string name="hr_cam_granted">Permission is now granted! Follow the instruction to measure your heart rate</string>
     <string name="AlarmGuide" translatable="false">Báo thức thông minh sẽ gọi bạn dậy khi bạn đã đạt được giấc ngủ sâu mà không đợi đến chính xác giỡ đã đặt báo thức để bạn có thể thoải mái và tỉnh táo hơn</string>
     <string name="Alarm_checkList" translatable="false">Chưa có chuông báo thức được đặt</string>
+    <string name="smart_alarm">Chưa có chuông báo được đặt</string>
 
 </resources>

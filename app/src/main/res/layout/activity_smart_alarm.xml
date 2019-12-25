@@ -28,7 +28,7 @@
         tools:layout_editor_absoluteX="10dp" />
 
     <Button
-        android:id="@+id/guideSmartAlarmButton"
+        android:id="@+id/btn_guide_smart_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
@@ -69,21 +69,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/txt_checkList"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="36dp"-->
-<!--        android:layout_marginRight="36dp"-->
-<!--        android:layout_marginBottom="28dp"-->
-<!--        android:clickable="true"-->
-<!--        android:text="@string/Alarm_checkList"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
-<!--        android:visibility="gone"-->
-<!--        app:backgroundTint="@color/color_smart_alarm_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <TextView
+        android:id="@+id/txt_checkList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginBottom="28dp"
+        android:clickable="true"
+        android:text="@string/smart_alarm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:backgroundTint="@color/color_smart_alarm_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.622" />
 </androidx.constraintlayout.widget.ConstraintLayout>

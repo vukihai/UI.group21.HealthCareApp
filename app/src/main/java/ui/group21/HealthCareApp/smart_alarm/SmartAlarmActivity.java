@@ -161,7 +161,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
     private void initView() {
         add = findViewById(R.id.add);
         mRcvTime = findViewById(R.id.rcy_alarm);
-        okGuide= findViewById(R.id.guideSmartAlarmButton);
+        okGuide= findViewById(R.id.btn_guide_smart_alarm);
         okGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,7 +172,7 @@ public class SmartAlarmActivity extends AppCompatActivity {
         mAlarmGuideDialog = new Dialog(SmartAlarmActivity.this);
         mAlarmGuideDialog.setContentView(R.layout.dialog_alarm_guide);
 //        mBtnGuide = findViewById(R.id.btn_guide);
-//        mTxtCheckList = findViewById(R.id.txt_checkList);
+        mTxtCheckList = findViewById(R.id.txt_checkList);
     }
 
 }
