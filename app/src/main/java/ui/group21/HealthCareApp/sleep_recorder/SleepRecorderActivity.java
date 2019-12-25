@@ -46,10 +46,14 @@ public class SleepRecorderActivity extends AppCompatActivity {
         public void onClick(View view) {
             isRecording = !isRecording;
             if(isRecording) {
-                mSleepRecordingButton.setText("Đã thức dậy");
+                mSleepRecordingButton.setText("Dừng");
+                mSleepRecordingButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_button_pause_sleep_recording));
+                mSleepRecordingButton.setTextColor(getResources().getColor(R.color.pause_sleep_recorder));
                 startRecording();
             } else {
-                mSleepRecordingButton.setText("Bắt đầu đi ngủ");
+                mSleepRecordingButton.setText("Bắt đầu");
+                mSleepRecordingButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_button_start_sleep_recording));
+                mSleepRecordingButton.setTextColor(getResources().getColor(R.color.start_sleep_recorder));
                 stopRecording();
             }
         }
@@ -65,6 +69,8 @@ public class SleepRecorderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setElevation(0f);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Theo dõi giấc ngủ");
         setContentView(R.layout.activity_sleep_recorder);
@@ -95,9 +101,13 @@ public class SleepRecorderActivity extends AppCompatActivity {
 
         isRecording = isServiceRunning();
         if(isRecording) {
-            mSleepRecordingButton.setText("Đã thức dậy");
+            mSleepRecordingButton.setText("Dừng");
+            mSleepRecordingButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_button_pause_sleep_recording));
+            mSleepRecordingButton.setTextColor(getResources().getColor(R.color.pause_sleep_recorder));
         } else {
-            mSleepRecordingButton.setText("Bắt đầu đi ngủ");
+            mSleepRecordingButton.setText("Bắt đầu");
+            mSleepRecordingButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_button_start_sleep_recording));
+            mSleepRecordingButton.setTextColor(getResources().getColor(R.color.start_sleep_recorder));
         }
     }
 
@@ -117,7 +127,7 @@ public class SleepRecorderActivity extends AppCompatActivity {
             float remValue = (float) (Math.random() * ((3 - 1) + 1)) + 1;
             float deepValue = (float) (Math.random() * ((2 - 1) + 1)) + 1;
             BarEntry stackedEntry = new BarEntry(i, new float[] {shallowValue, deepValue, remValue});
-            xLabels.add((new Integer(i)).toString() + "/" + (new Integer(cal.get(Calendar.MONTH))).toString());
+            xLabels.add((new Integer(i)).toString() + "/" + (new Integer(cal.get(Calendar.MONTH) + 1)).toString());
             entries.add(stackedEntry);
         }
 
@@ -127,6 +137,7 @@ public class SleepRecorderActivity extends AppCompatActivity {
         int[] colors = new int[3];
         System.arraycopy(ColorTemplate.MATERIAL_COLORS, 0, colors, 0, 3);
         set.setColors(colors);
+        set.setDrawValues(false);
 
         BarData data = new BarData(set);
 
@@ -139,7 +150,7 @@ public class SleepRecorderActivity extends AppCompatActivity {
         mSleepStaticChart.getAxisLeft().setDrawGridLines(false);
 
         mSleepStaticChart.getAxisRight().setDrawAxisLine(false);
-        mSleepStaticChart.getAxisRight().setDrawGridLines(false);
+//        mSleepStaticChart.getAxisRight().setDrawGridLines(false);
         mSleepStaticChart.getAxisRight().setDrawLabels(false);
 
         mSleepStaticChart.getDescription().setEnabled(false);

@@ -27,4 +27,6 @@
     <color name="color_smart_alarm_content">#71A0DE</color>
     <color name="blue">#D2E6F8</color>
     <color name="color_sleep_recorder_content">#6FACC7</color>
+    <color name="pause_sleep_recorder">#EF5350</color>
+    <color name="start_sleep_recorder">#42A5F5</color>
 </resources>

@@ -30,14 +30,14 @@ public class SleepRecorderService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "sleep recorder STARTED", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Đã bắt đầu theo dõi giấc ngủ", Toast.LENGTH_SHORT).show();
         mHandler.postDelayed(mRunnable, 0);
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "sleep recorder STOPPED", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Đã ngừng theo dõi giấc ngủ", Toast.LENGTH_SHORT).show();
         mHandler.removeCallbacks(mRunnable);
         super.onDestroy();
     }
